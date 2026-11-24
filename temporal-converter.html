@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>64-Order Temporal Converter | KUTS Global Academy — Pin A Leaf</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #060913;
+      color: #e2e8f0;
+    }
+    .font-mono-kuts {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.16);
+    }
+    .grid-bg {
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+  </style>
+</head>
+<body class="grid-bg min-h-screen flex flex-col antialiased">
+
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="./index.html" class="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center font-bold text-white">
+          K8
+        </a>
+        <div>
+          <span class="font-bold text-white text-base block leading-none">64-Order Temporal Converter</span>
+          <span class="text-[11px] text-sky-400 font-mono-kuts">KUTS REV 8 ENGINE • THRINC000</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="./academy.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition">
+          Academy LMS
+        </a>
+        <a href="./index.html" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition">
+          ← Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- Converter Console -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Input Controls -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono-kuts uppercase tracking-wider text-sky-400">Section 3.2a &amp; 4.1 Encoder</span>
+          <button type="button" onclick="loadGW150914()" class="text-xs font-mono-kuts px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500/30 transition">
+            Load GW150914 Benchmark
+          </button>
+        </div>
+        <h1 class="text-2xl font-bold text-white">Calendar Instant → KUTS Composite ID</h1>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Computes elapsed proleptic Gregorian days from Reference Origin <strong>T0 (Year -9999, 00:00:00)</strong>, converts to Session-Epoch ticks (<strong>334.00 ns</strong>) using double precision, and decomposes into 11 Base-100 fields.
+        </p>
+
+        <form onsubmit="runConversion(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">UTC Date (YYYY-MM-DD)</label>
+              <input id="input-date" type="text" value="2015-09-14" required
+                class="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-sm font-mono-kuts text-white focus:outline-none focus:border-sky-400" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">UTC Time (HH:MM:SS.ss)</label>
+              <input id="input-time" type="text" value="09:50:45.39" required
+                class="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-sm font-mono-kuts text-white focus:outline-none focus:border-sky-400" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Functional Category</label>
+              <select id="input-cat" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-sky-300 focus:outline-none focus:border-sky-400">
+                <option value="01">01 — Temporal</option>
+                <option value="02">02 — Spatial</option>
+                <option value="03" selected>03 — Kinetic</option>
+                <option value="04">04 — Neural</option>
+                <option value="05">05 — Elemental</option>
+                <option value="06">06 — Plants</option>
+                <option value="07">07 — Animals</option>
+                <option value="08">08 — Expressive</option>
+                <option value="09">09 — Fluidic</option>
+                <option value="10">10 — Virtual</option>
+                <option value="11">11 — Institutional</option>
+                <option value="12">12 — Fiscal</option>
+                <option value="13">13 — Structural</option>
+                <option value="14">14 — Mechanical</option>
+                <option value="15">15 — Radiant</option>
+                <option value="16">16 — Latent</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Node Callsign</label>
+              <input id="input-node" type="text" value="THR" maxlength="9" required
+                class="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-white uppercase focus:outline-none focus:border-sky-400" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Sub-Tick (00–99)</label>
+              <input id="input-subtick" type="text" value="01" maxlength="2" required
+                class="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-white focus:outline-none focus:border-sky-400" />
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition shadow-lg shadow-sky-500/20">
+              Compute KUTS Identifier
+            </button>
+            <button type="button" onclick="useCurrentUtc()" class="px-4 py-2.5 rounded-xl border border-slate-700 hover:border-sky-400 text-slate-300 text-xs transition">
+              Use Current UTC Now
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Output Readout -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono-kuts uppercase tracking-wider text-emerald-400">Deterministic Output</span>
+            <button onclick="copyResult()" class="text-xs font-mono-kuts text-sky-400 hover:underline">Copy Serial</button>
+          </div>
+
+          <div class="bg-slate-950/90 p-5 rounded-xl border border-sky-500/30">
+            <div class="text-[11px] font-mono-kuts text-slate-500 mb-1">KUTS COMPOSITE IDENTIFIER</div>
+            <div id="out-composite" class="text-lg sm:text-xl font-bold font-mono-kuts text-sky-300 break-all">
+              03:00.01.13.51.71.67.97.76.61.67.66-THR.01
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono-kuts text-xs">
+            <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+              <span class="text-slate-500 block mb-0.5">Elapsed Days from T0</span>
+              <span id="out-days" class="text-white font-semibold">4,388,279</span>
+            </div>
+            <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
+              <span class="text-slate-500 block mb-0.5">Time-of-Day Seconds</span>
+              <span id="out-tod" class="text-white font-semibold">35,445.39 s</span>
+            </div>
+            <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 sm:col-span-2">
+              <span class="text-slate-500 block mb-0.5">Total Elapsed Seconds from T0</span>
+              <span id="out-seconds" class="text-emerald-300 font-semibold">379,147,341,045.39 s</span>
+            </div>
+            <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 sm:col-span-2">
+              <span class="text-slate-500 block mb-0.5">Rounded Session-Epoch Ticks (N)</span>
+              <span id="out-ticks" class="text-indigo-300 font-semibold">1,135,171,679,776,616,766</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="error-box" class="hidden text-xs font-mono-kuts text-rose-400 bg-rose-950/40 border border-rose-500/30 p-3 rounded-lg"></div>
+      </div>
+    </section>
+
+    <!-- Complete 64-Order Decimal Scale Reference Table -->
+    <section class="glass-panel rounded-2xl p-6 sm:p-8 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono-kuts uppercase tracking-wider text-sky-400">Section 3.1 Master Ledger</span>
+          <h2 class="text-xl font-bold text-white">The 64-Order Decimal Scale (Tn &amp; Light-Distance Dn)</h2>
+        </div>
+        <select id="band-filter" onchange="renderOrdersTable()" class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-slate-200">
+          <option value="all">All 64 Orders (Band I – IV)</option>
+          <option value="1">Band I: Quantum Floor (Orders 1–16)</option>
+          <option value="2">Band II: Digital / Particle Scale (Orders 17–32)</option>
+          <option value="3" selected>Band III: Human / Strategic Scale (Orders 33–48)</option>
+          <option value="4">Band IV: Macro-Cosmic Scale (Orders 49–64)</option>
+        </select>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse font-mono-kuts text-xs">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400">
+              <th class="py-2.5 px-3">Order</th>
+              <th class="py-2.5 px-3">Epoch Name</th>
+              <th class="py-2.5 px-3">Symbol</th>
+              <th class="py-2.5 px-3">Duration (Tn)</th>
+              <th class="py-2.5 px-3">Light-Distance (Dn = Tn × c)</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody" class="divide-y divide-slate-800/60"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const TSES = 3.340e-7;
+    const C_LIGHT = 299792458;
+
+    // Exact Proleptic Gregorian JDN at 00:00:00 UTC (astronomical year numbering: 1 BCE = 0)
+    function gregorianDateToJDN(year, month, day) {
+      const a = Math.floor((14 - month) / 12);
+      const y = year + 4800 - a;
+      const m = month + 12 * a - 3;
+      return day + Math.floor((153 * m + 2) / 5) + 365 * y + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400) - 32045;
+    }
+
+    const JDN_T0 = gregorianDateToJDN(-9999, 1, 1);
+
+    function parseUtcInputs(dateStr, timeStr) {
+      const dateMatch = dateStr.trim().match(/^(-?\d{1,5})-(\d{2})-(\d{2})$/);
+      if (!dateMatch) throw new Error("Invalid date format. Use YYYY-MM-DD (or -YYYY-MM-DD).");
+      const year = parseInt(dateMatch[1], 10);
+      const month = parseInt(dateMatch[2], 10);
+      const day = parseInt(dateMatch[3], 10);
+      if (month < 1 || month > 12 || day < 1 || day > 31) throw new Error("Calendar month/day out of range.");
+
+      const timeMatch = timeStr.trim().match(/^(\d{2}):(\d{2}):(\d{2}(?:\.\d+)?)$/);
+      if (!timeMatch) throw new Error("Invalid time format. Use HH:MM:SS.ss.");
+      const hr = parseInt(timeMatch[1], 10);
+      const min = parseInt(timeMatch[2], 10);
+      const sec = parseFloat(timeMatch[3]);
+      if (hr > 23 || min > 59 || sec >= 61) throw new Error("Time-of-day component out of range.");
+
+      const jdnEvent = gregorianDateToJDN(year, month, day);
+      const elapsedDays = jdnEvent - JDN_T0;
+      if (elapsedDays < 0) throw new Error("Section 10.1(11) Rejection: Instant precedes Reference Origin T0.");
+
+      const todSeconds = hr * 3600 + min * 60 + sec;
+      const totalSeconds = elapsedDays * 86400 + todSeconds;
+      const tickFloat = totalSeconds / TSES;
+      const tickInt = BigInt(Math.round(tickFloat));
+
+      if (tickInt >= 10000000000000000000000n) {
+        throw new Error("Payload exceeds 10^22 - 1 maximum range.");
+      }
+
+      let temp = tickInt;
+      const fields = new Array(11).fill('00');
+      for (let i = 10; i >= 0; i--) {
+        fields[i] = String(Number(temp % 100n)).padStart(2, '0');
+        temp = temp / 100n;
+      }
+
+      return { elapsedDays, todSeconds, totalSeconds, tickInt, fields };
+    }
+
+    function runConversion(e) {
+      if (e) e.preventDefault();
+      const errBox = document.getElementById('error-box');
+      errBox.classList.add('hidden');
+
+      try {
+        const dateStr = document.getElementById('input-date').value;
+        const timeStr = document.getElementById('input-time').value;
+        const cat = document.getElementById('input-cat').value;
+        const node = document.getElementById('input-node').value.trim().toUpperCase();
+        const subtick = document.getElementById('input-subtick').value.trim().padStart(2, '0');
+
+        if (!/^[A-Z]{3}[0-9]{0,6}$/.test(node)) {
+          throw new Error("NodeID must be 3 uppercase letters + optional 0-6 digits (e.g., THR or THRINC000).");
+        }
+        if (!/^[0-9]{2}$/.test(subtick)) {
+          throw new Error("Sub-tick counter must be 2 digits (00–99).");
+        }
+
+        const res = parseUtcInputs(dateStr, timeStr);
+        document.getElementById('out-days').textContent = res.elapsedDays.toLocaleString('en-US');
+        document.getElementById('out-tod').textContent = `${res.todSeconds.toFixed(4)} s`;
+        document.getElementById('out-seconds').textContent = `${res.totalSeconds.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 })} s`;
+        document.getElementById('out-ticks').textContent = res.tickInt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById('out-composite').textContent = `${cat}:${res.fields.join('.')}-${node}.${subtick}`;
+      } catch (err) {
+        errBox.textContent = err.message;
+        errBox.classList.remove('hidden');
+      }
+    }
+
+    function loadGW150914() {
+      document.getElementById('input-date').value = "2015-09-14";
+      document.getElementById('input-time').value = "09:50:45.39";
+      document.getElementById('input-cat').value = "03";
+      document.getElementById('input-node').value = "THR";
+      document.getElementById('input-subtick').value = "01";
+      runConversion();
+    }
+
+    function useCurrentUtc() {
+      const now = new Date();
+      const yyyy = now.getUTCFullYear();
+      const mm = String(now.getUTCMonth() + 1).padStart(2, '0');
+      const dd = String(now.getUTCDate()).padStart(2, '0');
+      const hh = String(now.getUTCHours()).padStart(2, '0');
+      const mi = String(now.getUTCMinutes()).padStart(2, '0');
+      const ss = (now.getUTCSeconds() + now.getUTCMilliseconds() / 1000).toFixed(3).padStart(6, '0');
+      document.getElementById('input-date').value = `${yyyy}-${mm}-${dd}`;
+      document.getElementById('input-time').value = `${hh}:${mi}:${ss}`;
+      runConversion();
+    }
+
+    function copyResult() {
+      const text = document.getElementById('out-composite').textContent.trim();
+      navigator.clipboard.writeText(text);
+    }
+
+    const ORDERS_64 = [
+      ["Kinetic-Point","KNP"],["Null-Epoch","NUE"],["Void-Epoch","VOE"],["Foam-Epoch","FOE"],
+      ["Strand-Epoch","SDE"],["Loop-Epoch","LPE"],["Brane-Epoch","BRE"],["Knot-Epoch","KNE"],
+      ["Weave-Epoch","WWE"],["Thread-Epoch","THE"],["Grain-Epoch","GRE"],["Shell-Epoch","SHE"],
+      ["Core-Epoch","CRE"],["Surge-Epoch","SGE"],["Depth-Epoch","DPE"],["Ripple-Epoch","RPE"],
+      ["Quark-Epoch","QKE"],["Lepton-Epoch","LNE"],["Photon-Epoch","PHE"],["Boson-Epoch","BOE"],
+      ["Nucleus-Epoch","NLE"],["Atomic-Epoch","ATE"],["Ion-Epoch","INE"],["Molecule-Epoch","MLE"],
+      ["Lattice-Epoch","LTE"],["Crystal-Epoch","CYE"],["Circuit-Epoch","CIE"],["Beacon-Epoch","BCE"],
+      ["Byte-Epoch","BYE"],["Frame-Epoch","FME"],["Clock-Epoch","CLE"],["Register-Epoch","RGE"],
+      ["Instant-Epoch","INS"],["Beat-Epoch","BET"],["Stride-Epoch","STR"],["Cadence-Epoch","CAD"],
+      ["Interval-Epoch","INT"],["Session-Epoch","SES"],["Shift-Epoch","SHF"],["Cycle-Epoch","CYC"],
+      ["Sprint-Epoch","SPR"],["Sequence-Epoch","SEQ"],["Chapter-Epoch","CHP"],["Passage-Epoch","PSG"],
+      ["Season-Epoch","SEA"],["Horizon-Epoch","HRZ"],["Venture-Epoch","VNT"],["Legacy-Epoch","LGY"],
+      ["Dominion-Epoch","DMN"],["Frontier-Epoch","FRT"],["Expanse-Epoch","EXP"],["Voyage-Epoch","VOY"],
+      ["Odyssey-Epoch","ODY"],["Continuum-Epoch","CNT"],["Nebula-Epoch","NEB"],["Cluster-Epoch","CLS"],
+      ["Spiral-Epoch","SPL"],["Galactic-Epoch","GLC"],["Cosmic-Epoch","CSC"],["Stellar-Epoch","STL"],
+      ["Eternal-Epoch","ETN"],["Infinite-Epoch","INF"],["Boundless-Epoch","BND"],["Genesis-Epoch","GEN"]
+    ];
+
+    function renderOrdersTable() {
+      const filter = document.getElementById('band-filter').value;
+      const tbody = document.getElementById('orders-tbody');
+      tbody.innerHTML = ORDERS_64.map((item, idx) => {
+        const order = idx + 1;
+        const band = Math.ceil(order / 16);
+        if (filter !== 'all' && String(band) !== filter) return '';
+        const expT = -44 + idx;
+        const tnStr = `3.340 × 10^${expT} s`;
+        const dnVal = 3.340 * Math.pow(10, expT) * C_LIGHT;
+        const dnStr = dnVal.toExponential(3) + " m";
+        const highlight = (order === 32 || order === 38 || order === 51) ? "bg-sky-500/10 text-sky-200" : "text-slate-300";
+        return `
+          <tr class="${highlight}">
+            <td class="py-2 px-3 font-semibold">${String(order).padStart(2, '0')}</td>
+            <td class="py-2 px-3">${item[0]}</td>
+            <td class="py-2 px-3 text-sky-400">${item[1]}</td>
+            <td class="py-2 px-3">${tnStr}</td>
+            <td class="py-2 px-3 text-emerald-300">${dnStr}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    renderOrdersTable();
+    runConversion();
+  </script>
+</body>
+</html>

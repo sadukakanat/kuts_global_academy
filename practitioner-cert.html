@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KUTS Certified Practitioner Diploma &amp; Kinepool Entry | Pin A Leaf</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #060913;
+      color: #e2e8f0;
+    }
+    .font-mono-kuts {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.18);
+    }
+    .grid-bg {
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+    @media print {
+      body * { visibility: hidden; }
+      #diploma-card, #diploma-card * { visibility: visible; }
+      #diploma-card {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #060913 !important;
+        color: #ffffff !important;
+        border: 3px solid #38bdf8 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body class="grid-bg min-h-screen flex flex-col antialiased">
+
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="./index.html" class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-indigo-600 flex items-center justify-center font-bold text-white">
+          K8
+        </a>
+        <div>
+          <span class="font-bold text-white text-base block leading-none">KUTS Practitioner Diploma</span>
+          <span class="text-[11px] text-emerald-400 font-mono-kuts">MASTER CREDENTIAL &amp; KINEPOOL GATE</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="./academy.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition">
+          Academy LMS
+        </a>
+        <a href="./partner-ops.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition">
+          Partner Hierarchy
+        </a>
+        <a href="./index.html" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition">
+          ← Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Step 1: 6-Module Conformance Audit Checklist -->
+    <section class="glass-panel rounded-2xl p-6 sm:p-8 space-y-6 no-print">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+        <div>
+          <span class="text-xs font-mono-kuts uppercase tracking-wider text-sky-400">Section 11 Institutional Verification</span>
+          <h1 class="text-2xl font-bold text-white mt-1">Practitioner Qualification Status</h1>
+          <p class="text-xs text-slate-400 mt-1">
+            All 6 core modules in <code>academy.html</code> must be certified before minting your Master KUTS Practitioner Diploma and entering Kinepool.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="completion-pill" class="px-3.5 py-1.5 rounded-lg font-mono-kuts text-xs bg-slate-900 border border-slate-700 text-amber-300">
+            Checking Modules...
+          </span>
+        </div>
+      </div>
+
+      <!-- 6-Module Status Grid -->
+      <div id="module-status-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+      <!-- Holder & Designation Setup -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        <div>
+          <label class="block text-xs text-slate-300 mb-1">Practitioner Full Legal Name</label>
+          <input id="holder-name" type="text" placeholder="Enter full name..." oninput="syncHolderName()"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-sky-400" />
+        </div>
+        <div>
+          <label class="block text-xs text-slate-300 mb-1">Operational Designation</label>
+          <select id="holder-rank" onchange="refreshDiploma()"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-sky-300 focus:outline-none focus:border-sky-400">
+            <option value="Associate Operator (Rank 1)">Associate Operator (Rank 1 — Field)</option>
+            <option value="Regional Node Operator (Rank 2)">Regional Node Operator (Rank 2 — District)</option>
+            <option value="Co-Delivery PPN Partner (Rank 3)">Co-Delivery PPN Partner (Rank 3 — State)</option>
+            <option value="KUTS Conformance Auditor">KUTS Rev 8 Conformance Auditor</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-300 mb-1">Assigned State / Territory</label>
+          <input id="holder-region" type="text" value="Kerala (THRINC000 Zone)" oninput="refreshDiploma()"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-slate-200 focus:outline-none focus:border-sky-400" />
+        </div>
+      </div>
+
+      <!-- Locked Warning or Mint Trigger -->
+      <div id="gate-banner" class="p-4 rounded-xl bg-amber-950/30 border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="text-xs text-amber-200 leading-relaxed">
+          <strong>Qualification Gate:</strong> Complete all 6 modules in the Academy LMS to unlock your cryptographic Master Practitioner Certificate and Kinepool entry token.
+        </div>
+        <div class="flex flex-wrap gap-2 shrink-0">
+          <a href="./academy.html" class="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition">
+            Go to Academy LMS
+          </a>
+          <button type="button" onclick="enableDemoUnlock()" class="px-3.5 py-2 rounded-lg border border-slate-700 hover:border-amber-400 text-slate-300 text-xs transition" title="Preview certificate layout with simulated 6/6 completion">
+            Preview Demo Mode
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 2: Master KUTS Practitioner Diploma (Unlocked at 6/6) -->
+    <section id="diploma-section" class="hidden space-y-6">
+      <div id="diploma-card" class="rounded-3xl p-8 sm:p-12 border-2 border-sky-400/50 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/80 shadow-2xl relative overflow-hidden space-y-8">
+        
+        <!-- Top Crest -->
+        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-slate-800 pb-6">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center font-bold text-2xl text-slate-950 shadow-lg">
+              K8
+            </div>
+            <div>
+              <div class="text-xs font-mono-kuts uppercase tracking-[0.2em] text-sky-400">Pinaleaf Advancements LLP • Pin A Leaf</div>
+              <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-0.5">KUTS Certified Practitioner</h2>
+            </div>
+          </div>
+          <div class="text-right font-mono-kuts text-xs">
+            <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 inline-block">
+              CATEGORY 11 • VERIFIED DIPLOMA
+            </span>
+            <div id="diploma-date" class="text-slate-400 mt-1.5"></div>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="space-y-4">
+          <p class="text-sm text-slate-400 uppercase tracking-wider font-mono-kuts">This Institutional Credential Certifies That</p>
+          <div id="diploma-holder" class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            Authorized Practitioner
+          </div>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-3xl">
+            Has demonstrated full conformance across all six core modules of the <strong class="text-white">KUTS Global Academy</strong>—spanning Computer Operations, Decentralized IPFS Infrastructure, Temporal Data Analytics, Applied AI Metering, Cyber-Physical Systems, and <strong class="text-sky-300">KUTS Revision 8 Engineering</strong>—and is accredited as:
+          </p>
+          <div class="inline-flex flex-wrap items-center gap-3 px-4 py-2 rounded-xl bg-sky-500/10 border border-sky-500/30 font-mono-kuts text-xs sm:text-sm text-sky-300">
+            <span id="diploma-rank">Associate Operator (Rank 1)</span>
+            <span class="text-slate-600">|</span>
+            <span id="diploma-region">Kerala (THRINC000 Zone)</span>
+          </div>
+        </div>
+
+        <!-- Cryptographic Attestation Block -->
+        <div class="bg-slate-950/90 rounded-2xl p-5 border border-slate-800 font-mono-kuts text-xs space-y-2.5">
+          <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+            <span class="text-slate-500">Master Practitioner Serial (Cat 11):</span>
+            <span id="diploma-serial" class="text-sky-400 font-semibold break-all"></span>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+            <span class="text-slate-500">Category 04 Kinepool Entry Key:</span>
+            <span id="diploma-access-key" class="text-amber-300 font-semibold break-all"></span>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+            <span class="text-slate-500">Master SHA-256 Chain Digest:</span>
+            <span id="diploma-sha256" class="text-emerald-400 break-all"></span>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+            <span class="text-slate-500">Issuing Anchor Authority:</span>
+            <span class="text-slate-300">THRINC000 • Kanimangalam, Thrissur, Kerala 680027, India</span>
+          </div>
+        </div>
+
+        <!-- Footer Signatures -->
+        <div class="flex flex-wrap items-end justify-between gap-6 pt-2 text-xs text-slate-400">
+          <div>
+            <div class="font-semibold text-white">Sadanandan Raveendran Kakkanat</div>
+            <div>Founder &amp; Managing Partner, Pinaleaf Advancements LLP</div>
+          </div>
+          <div class="font-mono-kuts text-[11px] text-slate-500">
+            Verify offline via ./auth-portal.html or Kinepool GRL Entry Gate
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Action Bar — Download Credential & Enter KINEPOOL -->
+      <div class="glass-panel rounded-2xl p-6 border-emerald-500/35 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 no-print">
+        <div class="space-y-1">
+          <span class="text-xs font-mono-kuts uppercase tracking-wider text-emerald-400">Gateway Unlocked</span>
+          <h3 class="text-lg font-bold text-white">Enter Kinepool Global Resource Ledger (GRL)</h3>
+          <p class="text-xs text-slate-400">
+            Download your signed Master Credential JSON or launch <strong>kinepool.onrender.com</strong> with your cryptographic practitioner token pre-attached.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <button type="button" onclick="downloadMasterCredential()" class="px-4 py-2.5 rounded-xl border border-slate-700 hover:border-sky-400 text-slate-200 text-xs font-medium transition">
+            Download Master .JSON
+          </button>
+          <button type="button" onclick="window.print()" class="px-4 py-2.5 rounded-xl border border-slate-700 hover:border-sky-400 text-slate-200 text-xs font-medium transition">
+            Print / Save PDF
+          </button>
+          <button type="button" onclick="enterKinepoolPortal()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-sky-500 hover:from-emerald-400 hover:to-sky-400 text-slate-950 font-bold text-xs transition shadow-lg shadow-emerald-500/25 flex items-center gap-2">
+            <span>Enter KINEPOOL Portal</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const REQUIRED_MODULES = [
+      { id: "01", code: "MOD-01", title: "Computer Fundamentals & Digital Operations" },
+      { id: "02", code: "MOD-02", title: "IT, Networking & Decentralized IPFS Web" },
+      { id: "03", code: "MOD-03", title: "Data Science & Temporal Ledger Analytics" },
+      { id: "04", code: "MOD-04", title: "Artificial Intelligence & Applied GenAI" },
+      { id: "05", code: "MOD-05", title: "Future Technologies & Cyber-Physical Systems" },
+      { id: "06", code: "MOD-06", title: "KUTS Rev 8 Engineering & GRL Operations" }
+    ];
+
+    const T0_JDN = -1931076.5;
+    const TSES = 3.340e-7;
+    let demoMode = false;
+    let masterCredentialObject = null;
+
+    function generateKutsSerial(categoryPrefix, subTick) {
+      const now = new Date();
+      const jdn = (now.getTime() / 86400000) + 2440587.5;
+      const elapsedSeconds = (jdn - T0_JDN) * 86400;
+      let ticks = BigInt(Math.round(elapsedSeconds / TSES));
+      const fields = new Array(11).fill('00');
+      for (let i = 10; i >= 0; i--) {
+        fields[i] = String(Number(ticks % 100n)).padStart(2, '0');
+        ticks = ticks / 100n;
+      }
+      return `${categoryPrefix}:${fields.join('.')}-THR.${subTick}`;
+    }
+
+    async function sha256Hex(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function getCompletedModules() {
+      try {
+        return JSON.parse(localStorage.getItem('kuts_completed_modules') || '{}');
+      } catch {
+        return {};
+      }
+    }
+
+    function syncHolderName() {
+      const val = document.getElementById('holder-name').value.trim();
+      localStorage.setItem('kuts_learner_name', val);
+      refreshDiploma();
+    }
+
+    function enableDemoUnlock() {
+      demoMode = true;
+      refreshDiploma();
+    }
+
+    async function refreshDiploma() {
+      const completed = getCompletedModules();
+      const gridEl = document.getElementById('module-status-grid');
+      let completedCount = 0;
+
+      gridEl.innerHTML = REQUIRED_MODULES.map(m => {
+        const record = completed[m.id];
+        const isDone = Boolean(record) || demoMode;
+        if (isDone) completedCount++;
+        return `
+          <div class="p-4 rounded-xl border ${
+            isDone ? 'bg-emerald-950/20 border-emerald-500/35' : 'bg-slate-900/70 border-slate-800'
+          } flex items-start justify-between gap-2">
+            <div>
+              <div class="text-[11px] font-mono-kuts ${isDone ? 'text-emerald-400' : 'text-slate-500'}">
+                ${m.code} • ${isDone ? 'CERTIFIED' : 'PENDING'}
+              </div>
+              <div class="text-xs font-semibold text-white mt-0.5">${m.title}</div>
+            </div>
+            <span class="px-2 py-0.5 rounded font-mono-kuts text-xs ${
+              isDone ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-500'
+            }">
+              ${isDone ? '✓' : '—'}
+            </span>
+          </div>
+        `;
+      }).join('');
+
+      const pill = document.getElementById('completion-pill');
+      const gateBanner = document.getElementById('gate-banner');
+      const diplomaSection = document.getElementById('diploma-section');
+
+      if (completedCount === REQUIRED_MODULES.length) {
+        pill.className = "px-3.5 py-1.5 rounded-lg font-mono-kuts text-xs bg-emerald-500/15 border border-emerald-500/35 text-emerald-300";
+        pill.textContent = demoMode ? "6 / 6 UNLOCKED (DEMO PREVIEW)" : "6 / 6 MODULES VERIFIED";
+        gateBanner.classList.add('hidden');
+        diplomaSection.classList.remove('hidden');
+
+        const holder = document.getElementById('holder-name').value.trim() || "Authorized KUTS Practitioner";
+        const rank = document.getElementById('holder-rank').value;
+        const region = document.getElementById('holder-region').value.trim() || "Pan-India Node Network";
+
+        const masterSerial = generateKutsSerial("11", "99");
+        const entryAccessKey = sessionStorage.getItem('kuts_learner_key') || generateKutsSerial("04", "01");
+        const moduleDigests = REQUIRED_MODULES.map(m => (completed[m.id] ? completed[m.id].sha256_digest : `DEMO_${m.id}`));
+
+        const chainInput = `${holder}|${rank}|${region}|${masterSerial}|${moduleDigests.join(':')}|THRINC000`;
+        const masterSha256 = await sha256Hex(chainInput);
+
+        masterCredentialObject = {
+          spec: "KUTS-REV8-PRACTITIONER-DIPLOMA",
+          issuer: "Pinaleaf Advancements LLP (THRINC000)",
+          holder: holder,
+          designation: rank,
+          territory: region,
+          master_kuts_serial: masterSerial,
+          kinepool_access_key: entryAccessKey,
+          module_digests: moduleDigests,
+          master_sha256_digest: masterSha256,
+          issued_iso: new Date().toISOString(),
+          mode: demoMode ? "DEMO_PREVIEW" : "VERIFIED_COMPLETION"
+        };
+
+        localStorage.setItem('kuts_practitioner_diploma', JSON.stringify(masterCredentialObject));
+
+        document.getElementById('diploma-holder').textContent = holder;
+        document.getElementById('diploma-rank').textContent = rank;
+        document.getElementById('diploma-region').textContent = region;
+        document.getElementById('diploma-serial').textContent = masterSerial;
+        document.getElementById('diploma-access-key').textContent = entryAccessKey;
+        document.getElementById('diploma-sha256').textContent = masterSha256;
+        document.getElementById('diploma-date').textContent = `Issued: ${new Date().toUTCString()}`;
+      } else {
+        pill.textContent = `${completedCount} / 6 Modules Completed`;
+        gateBanner.classList.remove('hidden');
+        diplomaSection.classList.add('hidden');
+      }
+    }
+
+    function downloadMasterCredential() {
+      if (!masterCredentialObject) return;
+      const blob = new Blob([JSON.stringify(masterCredentialObject, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'KUTS_Practitioner_Master_Credential.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function enterKinepoolPortal() {
+      if (!masterCredentialObject) return;
+      // Copy full cryptographic JSON credential to clipboard for seamless paste/import
+      try {
+        navigator.clipboard.writeText(JSON.stringify(masterCredentialObject));
+      } catch {}
+
+      const params = new URLSearchParams({
+        kuts_serial: masterCredentialObject.master_kuts_serial,
+        access_key: masterCredentialObject.kinepool_access_key,
+        holder: masterCredentialObject.holder,
+        rank: masterCredentialObject.designation,
+        digest: masterCredentialObject.master_sha256_digest
+      });
+
+      window.open(`https://kinepool.onrender.com/?${params.toString()}`, '_blank', 'noopener');
+    }
+
+    // Initialize
+    const savedName = localStorage.getItem('kuts_learner_name');
+    if (savedName) {
+      document.getElementById('holder-name').value = savedName;
+    }
+    refreshDiploma();
+  </script>
+</body>
+</html>

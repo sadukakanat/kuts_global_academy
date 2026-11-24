@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>16-Category Entity Registry &amp; Classification Engine | KUTS Global Academy — Pin A Leaf</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #060913;
+      color: #e2e8f0;
+    }
+    .font-mono-kuts {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.16);
+    }
+    .grid-bg {
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+  </style>
+</head>
+<body class="grid-bg min-h-screen flex flex-col antialiased">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="./index.html" class="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-500 to-emerald-600 flex items-center justify-center font-bold text-white">
+          K8
+        </a>
+        <div>
+          <span class="font-bold text-white text-base block leading-none">16-Category Entity Registry</span>
+          <span class="text-[11px] text-sky-400 font-mono-kuts">SECTION 2.2 &amp; 5.2 CLASSIFICATION ENGINE</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="./my-task.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition">
+          Expanse Tasks
+        </a>
+        <a href="./academy.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition">
+          Academy LMS
+        </a>
+        <a href="./index.html" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition">
+          ← Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Section 5.2 Classification Decision Tree + Local Entity Tagger -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Interactive Section 5.2 Decision Tree Wizard -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
+        <div>
+          <span class="text-xs font-mono-kuts uppercase tracking-wider text-sky-400">Section 5.1 &amp; 5.2 Normative Precedence</span>
+          <h1 class="text-2xl font-bold text-white mt-1">Classification Decision Tree Wizard</h1>
+          <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+            Resolves ambiguous entries strictly by physical/operational nature in descending precedence: <em>Event/Phenomenon → Fiscal/Resource-Type → Ledger-Operation → Transaction-Purpose</em>.
+          </p>
+        </div>
+
+        <form onsubmit="classifyAndRegisterEntity(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Entity or Asset Label</label>
+            <input id="entity-label" type="text" required placeholder="e.g., Canon PIXMA G3730 Workstation or GW150914 Signal"
+              class="w-full px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-sky-400" />
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Step 1–4 Precedence Basis</label>
+            <select id="precedence-step" onchange="updateWizardOptions()"
+              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-sky-300">
+              <option value="phenomenon">1. External Physical / Scientific Observation (Highest)</option>
+              <option value="fiscal">2. Kine-Denominated Fiscal Transaction (Mint / Settle)</option>
+              <option value="resource" selected>3. Named Resource / Asset Type (Hardware, Digital, Bio, Infra)</option>
+              <option value="institutional">4. Law, License, Governance or Reclassification Record</option>
+              <option value="purpose">5. Ambiguous Tie-Breaker (Flag for Manual Audit)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Resolved Functional Category (01–16)</label>
+            <select id="resolved-cat"
+              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-emerald-300">
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Anchor Node Callsign</label>
+              <input id="entity-node" type="text" value="THR" maxlength="9" required
+                class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-white uppercase" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Physical / Digital Fingerprint</label>
+              <input id="entity-fp" type="text" placeholder="Serial / MAC / IPFS CID"
+                class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-slate-300" />
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition shadow-lg shadow-sky-500/20">
+            Mint Immutable KUTS Entity Identifier
+          </button>
+        </form>
+      </div>
+
+      <!-- Local Registered Entities Vault (Zero DB) -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-5">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div>
+              <span class="text-xs font-mono-kuts uppercase tracking-wider text-emerald-400">Section 5.3 Immutability Log</span>
+              <h2 class="text-xl font-bold text-white">Local Entity Registry</h2>
+            </div>
+            <button type="button" onclick="exportEntitiesJson()" class="text-xs font-mono-kuts px-3 py-1.5 rounded-lg border border-slate-700 hover:border-emerald-400 text-emerald-300 transition">
+              Export .JSON
+            </button>
+          </div>
+
+          <div id="entity-list" class="space-y-3 max-h-[370px] overflow-y-auto pr-1"></div>
+        </div>
+
+        <div class="text-[11px] font-mono-kuts text-slate-500 border-t border-slate-800/80 pt-3">
+          Section 5.3 Rule: Once committed, a Functional Category prefix is immutable. Corrections require a cross-referencing Category 11 reclassification record.
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Complete 16 Functional Categories Reference Table -->
+    <section class="glass-panel rounded-2xl p-6 sm:p-8 space-y-4">
+      <div>
+        <span class="text-xs font-mono-kuts uppercase tracking-wider text-sky-400">Section 2.2 Dual-Axis Domain Matrix</span>
+        <h2 class="text-xl font-bold text-white">The 16 Functional Categories (Structurally Independent of 64 Orders)</h2>
+      </div>
+
+      <div id="categories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+    </section>
+
+  </main>
+
+  <script>
+    const CATEGORIES_16 = [
+      { code: "01", name: "Temporal", rule: "Time / Epochs (Clock Cycle)", group: "phenomenon" },
+      { code: "02", name: "Spatial", rule: "Anchor Nodes / Points (Mapped Boundary)", group: "resource" },
+      { code: "03", name: "Kinetic", rule: "Velocity / Force / Gravitational Waves (Directed Vector)", group: "phenomenon" },
+      { code: "04", name: "Neural", rule: "Identity / Logic (Neural Synapse)", group: "resource" },
+      { code: "05", name: "Elemental", rule: "Raw Matter / Atoms (Particle Physics)", group: "phenomenon" },
+      { code: "06", name: "Plants", rule: "Stationary Life (Rooted Growth)", group: "resource" },
+      { code: "07", name: "Animals", rule: "Mobile Life (Encapsulated Motion)", group: "resource" },
+      { code: "08", name: "Expressive", rule: "Creative Works (Artistic Vision)", group: "resource" },
+      { code: "09", name: "Fluidic", rule: "Air & Water (Enclosed Wave Flow)", group: "phenomenon" },
+      { code: "10", name: "Virtual", rule: "Digital Assets / AI (Data Tags / Telemetry)", group: "resource" },
+      { code: "11", name: "Institutional", rule: "Laws & Licenses (Formal Columns)", group: "institutional" },
+      { code: "12", name: "Fiscal", rule: "Value / Currency (Kine Ledger)", group: "fiscal" },
+      { code: "13", name: "Structural", rule: "Infrastructure (Beams / Frames)", group: "resource" },
+      { code: "14", name: "Mechanical", rule: "Machines / Hardware (Gears / Grids)", group: "resource" },
+      { code: "15", name: "Radiant", rule: "Signals / Fields / EM Radiation (Expanding Waves)", group: "phenomenon" },
+      { code: "16", name: "Latent", rule: "The Unknown / Genesis Origin (Singularities)", group: "purpose" }
+    ];
+
+    const T0_JDN = -1931076.5;
+    const TSES = 3.340e-7;
+
+    function mintCompositeId(catCode, nodeId, subTick) {
+      const now = new Date();
+      const jdn = (now.getTime() / 86400000) + 2440587.5;
+      const elapsedSeconds = (jdn - T0_JDN) * 86400;
+      let ticks = BigInt(Math.round(elapsedSeconds / TSES));
+      const fields = new Array(11).fill('00');
+      for (let i = 10; i >= 0; i--) {
+        fields[i] = String(Number(ticks % 100n)).padStart(2, '0');
+        ticks = ticks / 100n;
+      }
+      return `${catCode}:${fields.join('.')}-${nodeId}.${subTick}`;
+    }
+
+    function updateWizardOptions() {
+      const basis = document.getElementById('precedence-step').value;
+      const selectEl = document.getElementById('resolved-cat');
+      let filtered = CATEGORIES_16;
+      if (basis === 'phenomenon') {
+        filtered = CATEGORIES_16.filter(c => ['01', '03', '05', '09', '15'].includes(c.code));
+      } else if (basis === 'fiscal') {
+        filtered = CATEGORIES_16.filter(c => c.code === '12');
+      } else if (basis === 'institutional') {
+        filtered = CATEGORIES_16.filter(c => c.code === '11');
+      } else if (basis === 'resource') {
+        filtered = CATEGORIES_16.filter(c => ['02', '04', '06', '07', '08', '10', '13', '14'].includes(c.code));
+      }
+      selectEl.innerHTML = filtered.map(c => `<option value="${c.code}">${c.code} — ${c.name} (${c.rule})</option>`).join('');
+    }
+
+    function getEntities() {
+      try {
+        return JSON.parse(localStorage.getItem('kuts_registered_entities') || '[]');
+      } catch {
+        return [];
+      }
+    }
+
+    function classifyAndRegisterEntity(e) {
+      e.preventDefault();
+      const list = getEntities();
+      const catCode = document.getElementById('resolved-cat').value;
+      const catObj = CATEGORIES_16.find(c => c.code === catCode);
+      const nodeId = document.getElementById('entity-node').value.trim().toUpperCase() || 'THR';
+      const subTick = String((list.length + 1) % 100).padStart(2, '0');
+      const basis = document.getElementById('precedence-step').value;
+
+      const entry = {
+        kuts_identifier: mintCompositeId(catCode, nodeId, subTick),
+        label: document.getElementById('entity-label').value.trim(),
+        category_code: catCode,
+        category_name: catObj ? catObj.name : '',
+        precedence_basis: basis,
+        audit_flag: basis === 'purpose' ? 'MANUAL_AUDIT_REQUIRED' : 'CONFORMANT',
+        fingerprint: document.getElementById('entity-fp').value.trim() || 'N/A',
+        created_iso: new Date().toISOString()
+      };
+
+      list.unshift(entry);
+      localStorage.setItem('kuts_registered_entities', JSON.stringify(list));
+      document.getElementById('entity-label').value = '';
+      document.getElementById('entity-fp').value = '';
+      renderEntities();
+    }
+
+    function renderEntities() {
+      const container = document.getElementById('entity-list');
+      const list = getEntities();
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 rounded-xl bg-slate-900/50 border border-dashed border-slate-800 text-center text-xs text-slate-400">
+            No entities minted yet. Classify any physical asset, digital CID, or event using the decision tree wizard.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(item => `
+        <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-bold text-white text-sm">${item.label}</span>
+            <span class="font-mono-kuts text-[11px] px-2 py-0.5 rounded bg-sky-500/15 text-sky-300">
+              CAT ${item.category_code} • ${item.category_name.toUpperCase()}
+            </span>
+          </div>
+          <div class="font-mono-kuts text-xs text-emerald-400 break-all">${item.kuts_identifier}</div>
+          <div class="flex justify-between text-[11px] font-mono-kuts text-slate-500">
+            <span>Fingerprint: ${item.fingerprint}</span>
+            <span>${item.audit_flag}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function exportEntitiesJson() {
+      const blob = new Blob([JSON.stringify({
+        spec: "KUTS-REV8-ENTITY-REGISTRY",
+        anchor_node: "THRINC000",
+        exported_at: new Date().toISOString(),
+        entities: getEntities()
+      }, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'KUTS_Entity_Registry.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('categories-grid').innerHTML = CATEGORIES_16.map(c => `
+      <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 space-y-1">
+        <div class="flex items-center justify-between font-mono-kuts text-xs">
+          <span class="text-sky-400 font-bold">PREFIX ${c.code}</span>
+          <span class="text-slate-500 uppercase text-[10px]">${c.group}</span>
+        </div>
+        <div class="font-bold text-white text-sm">${c.name}</div>
+        <div class="text-xs text-slate-400 leading-relaxed">${c.rule}</div>
+      </div>
+    `).join('');
+
+    updateWizardOptions();
+    renderEntities();
+  </script>
+</body>
+</html>

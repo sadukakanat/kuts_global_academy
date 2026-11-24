@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LMS Console | KUTS Global Academy — Pin A Leaf</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #060913;
+      color: #e2e8f0;
+    }
+    .font-mono-kuts {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.16);
+    }
+    @media print {
+      body * { visibility: hidden; }
+      #certificate-card, #certificate-card * { visibility: visible; }
+      #certificate-card {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #0f172a !important;
+        color: #ffffff !important;
+        border: 2px solid #38bdf8 !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- Top Bar -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="./index.html" class="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center font-bold text-white">
+          K8
+        </a>
+        <div>
+          <span class="font-bold text-white text-base block leading-none">KUTS Global Academy</span>
+          <span class="text-[11px] text-emerald-400 font-mono-kuts">ZERO-DB STATELESS IPFS LMS</span>
+        </div>
+      </div>
+
+      <div class="hidden md:flex items-center gap-3 text-xs font-mono-kuts text-slate-400">
+        <span id="session-badge" class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-sky-300">
+          OPEN LEARNER MODE
+        </span>
+        <span id="progress-counter" class="px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/25 text-emerald-300">
+          0 / 6 Certified
+        </span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="exportProgressBackup()" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition">
+          Export .KUTS State
+        </button>
+        <a href="./index.html" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition">
+          ← Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Sidebar: Module Navigation -->
+    <aside class="lg:col-span-4 space-y-4">
+      <div class="glass-panel rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-xs font-mono-kuts uppercase tracking-wider text-sky-400">Curriculum Modules</h2>
+          <span class="text-[11px] text-slate-500 font-mono-kuts">./data/catalog.json</span>
+        </div>
+        <div id="module-list" class="space-y-2"></div>
+      </div>
+
+      <!-- Learner Identity Box (Stored only in localStorage) -->
+      <div class="glass-panel rounded-2xl p-4 space-y-3">
+        <h3 class="text-xs font-mono-kuts uppercase tracking-wider text-indigo-400">Credential Holder Name</h3>
+        <p class="text-xs text-slate-400">
+          Stored strictly in your local browser for offline SHA-256 certificate generation (Zero server PII).
+        </p>
+        <input 
+          id="learner-name-input" 
+          type="text" 
+          placeholder="Enter full name for certificate..."
+          onchange="saveLearnerName()"
+          class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-sky-400"
+        />
+      </div>
+    </aside>
+
+    <!-- Content Pane: Lessons + Assessment + Certificate -->
+    <section class="lg:col-span-8 space-y-6">
+      <div id="lesson-container" class="glass-panel rounded-2xl p-6 sm:p-8">
+        <!-- Populated dynamically -->
+      </div>
+
+      <!-- Quiz & Verification Section -->
+      <div id="quiz-container" class="glass-panel rounded-2xl p-6 sm:p-8">
+        <!-- Populated dynamically -->
+      </div>
+
+      <!-- Verifiable Category 11 Certificate Output -->
+      <div id="certificate-wrapper" class="hidden">
+        <div id="certificate-card" class="glass-panel rounded-2xl p-6 sm:p-8 border-2 border-emerald-500/40 bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950/60 space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-4">
+            <div>
+              <span class="text-xs font-mono-kuts text-emerald-400 uppercase tracking-widest">Category 11 • Institutional Credential</span>
+              <h3 class="text-2xl font-bold text-white mt-1">Certificate of Conformance &amp; Completion</h3>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-mono-kuts">
+              VERIFIED SHA-256
+            </span>
+          </div>
+
+          <div class="space-y-2 text-sm text-slate-300">
+            <p>This certifies that <strong id="cert-holder" class="text-white text-lg underline decoration-sky-500/60">Learner</strong> has successfully completed:</p>
+            <p id="cert-module-title" class="text-xl font-bold text-sky-300"></p>
+            <p class="text-xs text-slate-400">Issued under the KUTS Revision 8 Decentralized Training Ecosystem • Pinaleaf Advancements LLP (THRINC000)</p>
+          </div>
+
+          <div class="bg-slate-950/90 rounded-xl p-4 border border-slate-800 space-y-2 font-mono-kuts text-xs">
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+              <span class="text-slate-500">KUTS Composite Serial:</span>
+              <span id="cert-kuts-id" class="text-sky-400 break-all"></span>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-1">
+              <span class="text-slate-500">SHA-256 Integrity Digest:</span>
+              <span id="cert-sha256" class="text-emerald-400 break-all"></span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <button onclick="downloadCertJson()" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-xs transition">
+              Download Verifiable .JSON Proof
+            </button>
+            <button onclick="window.print()" class="px-4 py-2 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-200 text-xs transition">
+              Print / Save PDF Certificate
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Embedded fallback catalog so file:// local testing works without CORS errors,
+    // while HTTP/IPFS deployments automatically fetch ./data/catalog.json first.
+    const EMBEDDED_CATALOG = {"ecosystem": "KUTS Global Academy", "issuer": "Pinaleaf Advancements LLP", "anchor_node": "THRINC000", "callsign": "THR", "spec_version": "KUTS Revision 8", "session_epoch_ns": 334.0, "modules": [{"id": "01", "code": "MOD-01", "category": "14 / 10 (Mechanical & Virtual)", "level": "Beginner", "title": "Computer Fundamentals & Digital Operations", "summary": "Hardware architecture, OS file trees, document engineering, digital hygiene, and safe handling of 22-digit cryptographic keys.", "lessons": [{"id": "01-1", "title": "Hardware, Operating Systems & File Architecture", "duration": "15 mins", "content": "Every digital workspace relies on the coordination between physical hardware (CPU, RAM, NVMe/SSD storage, and peripherals such as printers and scanners) and the Operating System (Windows, Linux, macOS).\n\nKey Operational Rules:\n1. Directory Hierarchy: Keep project folders lowercase without spaces (e.g., kuts_global_academy) so they deploy cleanly across Windows workstations, Linux servers, and IPFS UnixFS trees.\n2. Open Document Standards: Prefer plain Markdown (.md), UTF-8 JSON (.json), and archival PDF/A for long-term readability independent of proprietary software versions.\n3. Local Backup Discipline: Maintain at least two physical copies of critical project directories before pinning them to decentralized networks."}, {"id": "01-2", "title": "Digital Hygiene & 22-Digit Cryptographic Key Safety", "duration": "20 mins", "content": "In passwordless cryptographic systems like KUTS Category 04 (Neural), your 22-digit Base-100 serial key is your identity.\n\nSecurity Best Practices:\n- Never share your Category 04 access key in public chat groups or unencrypted screenshots.\n- Store keys inside an encrypted password manager or an offline hardware backup.\n- Verify domain URLs (e.g., pinaleaf.com or verified DNSLink gateways) before entering cryptographic payloads."}], "quiz": [{"q": "Why should folder and file names in an IPFS web bundle use lowercase letters without spaces?", "options": ["To ensure cross-platform compatibility across Linux servers and case-sensitive IPFS gateways", "Because Windows 11 does not support capital letters", "To reduce the file size by 50%"], "answer": 0}, {"q": "Which KUTS Functional Category governs identity, logic, and 22-digit cryptographic access keys?", "options": ["Category 12 (Fiscal)", "Category 04 (Neural)", "Category 09 (Fluidic)"], "answer": 1}]}, {"id": "02", "code": "MOD-02", "category": "10 / 02 (Virtual & Spatial)", "level": "Foundational", "title": "IT, Networking & Decentralized IPFS Web", "summary": "IPv4/IPv6 addressing, DNS, REST APIs, Git workflows, and pinning/retrieving immutable CIDs on IPFS.", "lessons": [{"id": "02-1", "title": "Location Addressing (HTTP) vs. Content Addressing (IPFS)", "duration": "20 mins", "content": "Traditional websites use HTTP URLs (Location Addressing): your browser asks a specific server at an IP address for a file. If that server goes offline or alters the file silently, the link breaks or misleads.\n\nIPFS (InterPlanetary File System) uses Content Addressing:\n- Every file or directory is hashed cryptographically into a Content Identifier (CID, e.g., bafybeig...).\n- If even a single comma inside a lesson changes, the CID changes completely.\n- Any node pinning that CID can serve the verified content to learners anywhere in the world."}, {"id": "02-2", "title": "Packaging & Pinning Static Bundles with DNSLink", "duration": "20 mins", "content": "To deploy a database-free application on IPFS:\n1. Use relative paths (./index.html, ./data/catalog.json) so the bundle works under any gateway path.\n2. Package the directory into a Content Addressable Archive (CAR) or run 'ipfs add -r kuts_global_academy'.\n3. Point a _dnslink TXT DNS record on your domain to /ipfs/<ROOT_CID> so users visit a memorable domain while receiving cryptographically verified IPFS blocks."}], "quiz": [{"q": "What happens to an IPFS Content Identifier (CID) if a single character inside the file is modified?", "options": ["The CID stays the same but increments a version number", "A completely new cryptographic CID is generated", "IPFS automatically deletes the old file"], "answer": 1}, {"q": "Which DNS mechanism maps a human-readable domain name to an immutable IPFS CID?", "options": ["MX Record", "DNSLink (_dnslink TXT record)", "DHCP Lease"], "answer": 1}]}, {"id": "03", "code": "MOD-03", "category": "10 / 01 (Virtual & Temporal)", "level": "Intermediate", "title": "Data Science & Temporal Ledger Analytics", "summary": "Structured schemas (JSON, CSV, Parquet), Python scripting, Julian Day Number (JDN) conversion, and Base-100 payload verification.", "lessons": [{"id": "03-1", "title": "Structured Data & Floating-Point Precision Rules", "duration": "20 mins", "content": "Clean data pipelines depend on strict schemas (JSON, CSV, Parquet) and exact numeric types.\n\nUnder KUTS Revision 8 Section 3.2a:\n- Calendar instants are converted to Julian Day Numbers (JDN) on the proleptic Gregorian calendar (1 BCE = astronomical year 0).\n- Sub-second precision must be carried at full IEEE-754 double precision (at least 15 significant digits) before dividing by Session-Epoch (334.00 ns) and rounding to the nearest integer."}, {"id": "03-2", "title": "Base-100 Positional Decomposition", "duration": "25 mins", "content": "Once the integer Session-Epoch tick count N is calculated, it is decomposed into 11 two-digit Base-100 fields (00 to 99), yielding 22 decimal digits.\n\nThis structure provides 100^11 = 10^22 distinct temporal positions, spanning approximately 105.8 million years from Reference Origin T0 while preserving fixed-width lexicographical sorting."}], "quiz": [{"q": "How many Base-100 fields make up the temporal payload of a KUTS Serial Number?", "options": ["8 fields (16 digits)", "11 fields (22 digits)", "16 fields (32 digits)"], "answer": 1}, {"q": "In astronomical year numbering used by KUTS JDN conversion, how is 1 BCE represented?", "options": ["Year -1", "Year 0", "Year 100"], "answer": 1}]}, {"id": "04", "code": "MOD-04", "category": "10 / 04 (Virtual & Neural)", "level": "Applied", "title": "Artificial Intelligence & Applied GenAI", "summary": "Machine learning fundamentals, LLM tokenization, prompt engineering, Retrieval-Augmented Generation (RAG), and RVE compute token metering.", "lessons": [{"id": "04-1", "title": "LLM Tokenization & Resource-Verification Metering", "duration": "20 mins", "content": "Large Language Models (LLMs) process text in sub-word chunks called tokens rather than whole words. Both input prompt tokens and generated output tokens consume real electrical energy and GPU compute.\n\nIn the KUTS Kine Valuation Equation (Section 2.6):\n- Baseline Identity: 1 Kine (K) = 10 kWh of industrial energy + 0.1M (100,000) AI compute tokens (with w1 = 0.5, w2 = 0.5, w3 = 0).\n- Token metering must be captured from verifiable serving infrastructure logs rather than self-reported estimates."}, {"id": "04-2", "title": "Grounding AI with Retrieval-Augmented Generation (RAG)", "duration": "20 mins", "content": "To prevent hallucinations in enterprise and scientific workflows, RAG retrieves verified source passages (such as pinned IPFS specifications) and injects them into the model's context window before generating an answer."}], "quiz": [{"q": "Under the KUTS baseline valuation identity (w1=0.5, w2=0.5), what resources equal 1 Kine (K)?", "options": ["1 kWh of energy + 1,000 AI tokens", "10 kWh of energy + 0.1M (100,000) AI compute tokens", "100 kWh of energy + 10M AI compute tokens"], "answer": 1}, {"q": "What is the primary purpose of Retrieval-Augmented Generation (RAG)?", "options": ["To ground AI responses in verified reference documents and reduce hallucinations", "To compress video files for IPFS", "To replace HTML with binary machine code"], "answer": 0}]}, {"id": "05", "code": "MOD-05", "category": "03 / 16 (Kinetic & Latent)", "level": "Frontier", "title": "Future Technologies & Cyber-Physical Systems", "summary": "Autonomous tool-calling AI agents, edge IoT telemetry, post-quantum cryptography, and multi-scalar chronometry.", "lessons": [{"id": "05-1", "title": "Cyber-Physical Anchor Nodes & Light-Distance Scaling", "duration": "25 mins", "content": "Cyber-physical systems bridge physical hardware sensors with deterministic digital ledgers. In KUTS, time (Tn) and light-distance (Dn = Tn \u00d7 c) are locked together across 64 decimal orders.\n\nAt Order 38 (Session-Epoch, 334.00 ns), light travels approximately 100.1 meters. Distributed anchor nodes measure propagation delay relative to Master Origin Node THRINC000 to maintain synchronization within one Session-Epoch tick."}, {"id": "05-2", "title": "Autonomous Agents & Human-in-the-Loop Governance", "duration": "20 mins", "content": "Next-generation AI systems combine reasoning models with deterministic software tools (calculators, ledger verifiers, IPFS pinners) bounded by strict conformance checks and human oversight."}], "quiz": [{"q": "Approximately how far does light travel during one KUTS Session-Epoch (Order 38 = 334.00 ns)?", "options": ["1.001 meters", "100.1 meters", "100.1 kilometers"], "answer": 1}, {"q": "What is the maximum synchronization error bound allowed between two connected KUTS nodes for uniqueness purposes?", "options": ["Less than one Session-Epoch tick (334.00 ns)", "Less than 1 second", "Less than 1 minute"], "answer": 0}]}, {"id": "06", "code": "MOD-06", "category": "11 / 12 (Institutional & Fiscal)", "level": "Certification", "title": "KUTS Rev 8 Engineering & GRL Operations", "summary": "16 Functional Categories, GW150914 worked verification, atomic sub-tick allocation, and Least Action Governance.", "lessons": [{"id": "06-1", "title": "Composite Identifier Grammar & GW150914 Verification", "duration": "25 mins", "content": "Every KUTS Revision 8 Composite Identifier follows the strict grammar:\n[2-Digit Category]:[11 Base-100 Fields]-[Anchor Node ID].[2-Digit Sub-Tick]\n\nVerified Scientific Benchmark (GW150914 \u2014 14 Sept 2015, 09:50:45.39 UTC):\n- Elapsed time from T0 = 379,147,341,045.39 seconds\n- Session-Epoch ticks N = 1,135,171,679,776,616,766\n- Composite Identifier: 03:00.01.13.51.71.67.97.76.61.67.66-THR.01"}, {"id": "06-2", "title": "Atomic Sub-Tick Allocation & Least Action Governance", "duration": "25 mins", "content": "1. Sub-Tick Uniqueness (\u00a74.3): Each node allocates slots 00\u201399 atomically within a single 334.00 ns tick (~2.99 \u00d7 10^8 events/sec/node). Overflow queues to the next tick or escalates to Order 32 Register-Epoch (0.334 ps).\n2. Historical Immutability (\u00a75.3): Committed identifiers are never deleted or silently edited; corrections emit a new Category 11 reclassification record.\n3. Least Action Governance (\u00a72.5 & \u00a76.5): Category 12 Kine settlements automatically allocate 1.5% to Protocol Fiscal Sweep (PFS) and 1.5% to Regenerative Stewardship Pool (RSP), crediting 97% net to the recipient."}], "quiz": [{"q": "What is the verified KUTS Revision 8 Composite Identifier for gravitational-wave event GW150914 logged at THR?", "options": ["03:00.01.13.51.71.67.97.76.61.67.66-THR.01", "01:00.00.00.00.00.00.00.00.00.00.00-THR.00", "12:00.01.13.51.71.67.97.76.61.68.32-THR.01"], "answer": 0}, {"q": "What total percentage is automatically allocated to PFS (1.5%) and RSP (1.5%) during a Category 12 Kine settlement?", "options": ["1.5%", "3.0%", "5.0%"], "answer": 1}]}]};
+
+    let catalog = null;
+    let activeModIndex = 0;
+    let latestCertPayload = null;
+
+    const T0_JDN = -1931076.5;
+    const TSES = 3.340e-7;
+
+    function generateKutsId(categoryPrefix = "11", subTick = "01") {
+      const now = new Date();
+      const jdn = (now.getTime() / 86400000) + 2440587.5;
+      const elapsedSeconds = (jdn - T0_JDN) * 86400;
+      let ticks = BigInt(Math.round(elapsedSeconds / TSES));
+      const fields = new Array(11).fill('00');
+      for (let i = 10; i >= 0; i--) {
+        fields[i] = String(Number(ticks % 100n)).padStart(2, '0');
+        ticks = ticks / 100n;
+      }
+      return `${categoryPrefix}:${fields.join('.')}-THR.${subTick}`;
+    }
+
+    async function sha256Hex(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function getCompletedMap() {
+      try {
+        return JSON.parse(localStorage.getItem('kuts_completed_modules') || '{}');
+      } catch {
+        return {};
+      }
+    }
+
+    function saveLearnerName() {
+      const val = document.getElementById('learner-name-input').value.trim();
+      localStorage.setItem('kuts_learner_name', val);
+    }
+
+    function updateHeaderBadges() {
+      const key = sessionStorage.getItem('kuts_learner_key');
+      if (key) {
+        document.getElementById('session-badge').textContent = `KEY AUTH: ${key.slice(0, 14)}...`;
+      }
+      const completed = getCompletedMap();
+      const count = Object.keys(completed).length;
+      document.getElementById('progress-counter').textContent = `${count} / ${catalog.modules.length} Certified`;
+    }
+
+    function renderSidebar() {
+      const listEl = document.getElementById('module-list');
+      const completed = getCompletedMap();
+      listEl.innerHTML = catalog.modules.map((mod, idx) => {
+        const isActive = idx === activeModIndex;
+        const isDone = Boolean(completed[mod.id]);
+        return `
+          <button onclick="selectModule(${idx})"
+            class="w-full text-left p-3.5 rounded-xl border transition flex items-start justify-between gap-2 ${
+              isActive 
+                ? 'bg-sky-500/15 border-sky-400/60 text-white' 
+                : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-300'
+            }">
+            <div>
+              <div class="text-[11px] font-mono-kuts ${isActive ? 'text-sky-300' : 'text-slate-500'}">
+                ${mod.code} • ${mod.level}
+              </div>
+              <div class="text-sm font-semibold mt-0.5 leading-snug">${mod.title}</div>
+            </div>
+            <span class="text-xs font-mono-kuts px-2 py-0.5 rounded ${
+              isDone ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-500'
+            }">
+              ${isDone ? '✓' : mod.id}
+            </span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderModuleContent() {
+      const mod = catalog.modules[activeModIndex];
+      const lessonEl = document.getElementById('lesson-container');
+      const quizEl = document.getElementById('quiz-container');
+      const completed = getCompletedMap();
+
+      lessonEl.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <span class="text-xs font-mono-kuts px-2.5 py-1 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">
+            ${mod.code} • CATEGORY ${mod.category}
+          </span>
+          <span class="text-xs text-slate-400 font-mono-kuts">${mod.lessons.length} Lessons</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-white mb-3">${mod.title}</h1>
+        <p class="text-sm text-slate-300 leading-relaxed mb-8 pb-6 border-b border-slate-800">${mod.summary}</p>
+
+        <div class="space-y-8">
+          ${mod.lessons.map((lesson, i) => `
+            <article class="space-y-3">
+              <div class="flex items-center justify-between">
+                <h2 class="text-lg font-bold text-sky-300">Lesson ${i + 1}: ${lesson.title}</h2>
+                <span class="text-xs font-mono-kuts text-slate-500">${lesson.duration}</span>
+              </div>
+              <div class="text-sm text-slate-300 leading-relaxed whitespace-pre-line bg-slate-950/60 p-5 rounded-xl border border-slate-800/80">
+                ${lesson.content}
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      `;
+
+      quizEl.innerHTML = `
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <span class="text-xs font-mono-kuts text-indigo-400 uppercase">Verification Assessment</span>
+            <h3 class="text-xl font-bold text-white">Module ${mod.id} Knowledge Check</h3>
+          </div>
+          ${completed[mod.id] ? '<span class="text-xs font-mono-kuts text-emerald-400">Previously Certified ✓</span>' : ''}
+        </div>
+        <form onsubmit="submitQuiz(event)" class="space-y-6">
+          ${mod.quiz.map((item, qIdx) => `
+            <div class="space-y-2.5">
+              <p class="text-sm font-semibold text-white">${qIdx + 1}. ${item.q}</p>
+              <div class="space-y-2">
+                ${item.options.map((opt, oIdx) => `
+                  <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-sky-500/40 cursor-pointer text-xs sm:text-sm text-slate-300">
+                    <input type="radio" name="q_${qIdx}" value="${oIdx}" required class="accent-sky-400" />
+                    <span>${opt}</span>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+          <div class="pt-2 flex flex-wrap items-center justify-between gap-4">
+            <p id="quiz-status" class="text-xs font-mono-kuts text-slate-400">Pass all questions (100%) to mint a Category 11 credential.</p>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition shadow-lg shadow-sky-500/20">
+              Verify &amp; Generate Certificate
+            </button>
+          </div>
+        </form>
+      `;
+
+      if (completed[mod.id]) {
+        showCertificate(completed[mod.id]);
+      } else {
+        document.getElementById('certificate-wrapper').classList.add('hidden');
+      }
+    }
+
+    async function submitQuiz(e) {
+      e.preventDefault();
+      const mod = catalog.modules[activeModIndex];
+      const statusEl = document.getElementById('quiz-status');
+      let score = 0;
+
+      mod.quiz.forEach((item, qIdx) => {
+        const selected = document.querySelector(`input[name="q_${qIdx}"]:checked`);
+        if (selected && Number(selected.value) === item.answer) {
+          score++;
+        }
+      });
+
+      if (score < mod.quiz.length) {
+        statusEl.className = 'text-xs font-mono-kuts text-rose-400';
+        statusEl.textContent = `Score: ${score}/${mod.quiz.length}. Review the lessons above and retry for 100% conformance.`;
+        return;
+      }
+
+      const holderName = document.getElementById('learner-name-input').value.trim() || 'Authorized KUTS Learner';
+      const kutsId = generateKutsId("11", mod.id);
+      const rawProofString = `${holderName}|${mod.code}|${mod.title}|${kutsId}|THRINC000`;
+      const digest = await sha256Hex(rawProofString);
+
+      const certRecord = {
+        spec: "KUTS-REV8-CAT11-CREDENTIAL",
+        issuer: "Pinaleaf Advancements LLP (THRINC000)",
+        holder: holderName,
+        module_code: mod.code,
+        module_title: mod.title,
+        score: `${score}/${mod.quiz.length}`,
+        kuts_identifier: kutsId,
+        sha256_digest: digest,
+        issued_iso: new Date().toISOString()
+      };
+
+      const completed = getCompletedMap();
+      completed[mod.id] = certRecord;
+      localStorage.setItem('kuts_completed_modules', JSON.stringify(completed));
+
+      statusEl.className = 'text-xs font-mono-kuts text-emerald-400';
+      statusEl.textContent = `100% Passed! Category 11 Credential minted locally.`;
+      updateHeaderBadges();
+      renderSidebar();
+      showCertificate(certRecord);
+    }
+
+    function showCertificate(certRecord) {
+      latestCertPayload = certRecord;
+      document.getElementById('cert-holder').textContent = certRecord.holder;
+      document.getElementById('cert-module-title').textContent = `${certRecord.module_code}: ${certRecord.module_title}`;
+      document.getElementById('cert-kuts-id').textContent = certRecord.kuts_identifier;
+      document.getElementById('cert-sha256').textContent = certRecord.sha256_digest;
+      document.getElementById('certificate-wrapper').classList.remove('hidden');
+    }
+
+    function downloadCertJson() {
+      if (!latestCertPayload) return;
+      const blob = new Blob([JSON.stringify(latestCertPayload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${latestCertPayload.module_code}_KUTS_Certificate.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportProgressBackup() {
+      const backup = {
+        exported_at: new Date().toISOString(),
+        learner_name: localStorage.getItem('kuts_learner_name') || '',
+        completed_modules: getCompletedMap()
+      };
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'learner_progress.kuts.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function selectModule(idx) {
+      activeModIndex = idx;
+      renderSidebar();
+      renderModuleContent();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function initAcademy() {
+      const savedName = localStorage.getItem('kuts_learner_name');
+      if (savedName) {
+        document.getElementById('learner-name-input').value = savedName;
+      }
+
+      try {
+        const res = await fetch('./data/catalog.json');
+        if (!res.ok) throw new Error('Fetch failed');
+        catalog = await res.json();
+      } catch {
+        catalog = EMBEDDED_CATALOG;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const requestedMod = params.get('mod');
+      if (requestedMod) {
+        const foundIdx = catalog.modules.findIndex(m => m.id === requestedMod.padStart(2, '0'));
+        if (foundIdx >= 0) activeModIndex = foundIdx;
+      }
+
+      updateHeaderBadges();
+      renderSidebar();
+      renderModuleContent();
+    }
+
+    initAcademy();
+  </script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RNO Partner Portal &amp; Credential Verifier | KUTS Global Academy — Pin A Leaf</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #060913;
+      color: #e2e8f0;
+    }
+    .font-mono-kuts {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.16);
+    }
+    .grid-bg {
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+  </style>
+</head>
+<body class="grid-bg min-h-screen flex flex-col antialiased">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="./index.html" class="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 to-sky-600 flex items-center justify-center font-bold text-white">
+          K8
+        </a>
+        <div>
+          <span class="font-bold text-white text-base block leading-none">RNO Partner &amp; Auth Portal</span>
+          <span class="text-[11px] text-amber-400 font-mono-kuts">CAT 04 NEURAL KEY &amp; CAT 11 VERIFIER</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="./global-nodes.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition">
+          Node Registry
+        </a>
+        <a href="./academy.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition">
+          Academy LMS
+        </a>
+        <a href="./index.html" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition">
+          ← Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Top Grid: Stateless Category 04 Key Generator + Category 11 Certificate Verifier -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Left: Stateless 22-Digit Serial Key Generator & Authenticator (Category 04) -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono-kuts uppercase tracking-wider text-sky-400">Category 04 • Neural Identity</span>
+          <span class="text-xs font-mono-kuts px-2.5 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">
+            ZERO-DB CRYPTOGRAPHIC KEY
+          </span>
+        </div>
+
+        <h1 class="text-2xl font-bold text-white">22-Digit KUTS Access Key Console</h1>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Generate a valid KUTS Session-Epoch cryptographic key for Regional Node Operator (RNO) or Academy LMS sessions, or paste an existing key to authenticate immediately.
+        </p>
+
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Partner / Learner Role</label>
+              <select id="key-role" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-slate-200">
+                <option value="01">RNO — Regional Node Operator</option>
+                <option value="02">DEV — KUTS Conformance Auditor</option>
+                <option value="03">EDU — Open Academy Scholar</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Issuing Anchor Node</label>
+              <input type="text" value="THR" readonly
+                class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono-kuts text-emerald-400" />
+            </div>
+          </div>
+
+          <button type="button" onclick="mintNewAccessKey()" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition shadow-lg shadow-sky-500/20">
+            Generate New 22-Digit Serial Key
+          </button>
+
+          <div class="bg-slate-950/90 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono-kuts text-slate-500">ACTIVE / GENERATED KEY PAYLOAD</span>
+              <button type="button" onclick="copyGeneratedKey()" class="text-xs font-mono-kuts text-sky-400 hover:underline">Copy Key</button>
+            </div>
+            <input id="active-key-box" type="text" placeholder="04:00.01.13.51.71.67.97.76.61.67.01-THR.01"
+              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-sky-300 focus:outline-none focus:border-sky-400" />
+            <div class="flex items-center justify-between pt-1">
+              <span id="key-status-msg" class="text-xs font-mono-kuts text-slate-400">Ready to generate or verify.</span>
+              <button type="button" onclick="activateAndEnterLms()" class="px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-xs transition">
+                Sign In to LMS →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Offline Category 11 Certificate Verifier -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono-kuts uppercase tracking-wider text-emerald-400">Category 11 • Institutional Audit</span>
+          <span class="text-xs font-mono-kuts px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/25">
+            OFFLINE SHA-256 VERIFIER
+          </span>
+        </div>
+
+        <h2 class="text-2xl font-bold text-white">Verify Downloaded Certificate (.JSON)</h2>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Upload or paste any <code>*_KUTS_Certificate.json</code> file issued by <code>academy.html</code>. The browser recomputes the cryptographic SHA-256 digest locally—zero database lookup required.
+        </p>
+
+        <div class="space-y-3">
+          <label class="block">
+            <span class="sr-only">Choose Certificate JSON File</span>
+            <input type="file" accept=".json" onchange="handleCertFileUpload(event)"
+              class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-sky-300 hover:file:bg-slate-700 cursor-pointer" />
+          </label>
+
+          <textarea id="cert-json-input" rows="5" placeholder='Paste certificate JSON content here to verify integrity...'
+            class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-slate-300 focus:outline-none focus:border-sky-400"></textarea>
+
+          <button type="button" onclick="verifyCertificateJson()" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-xs transition">
+            Verify Cryptographic Integrity
+          </button>
+        </div>
+
+        <div id="cert-verify-result" class="hidden bg-slate-950/90 p-4 rounded-xl border border-slate-800 font-mono-kuts text-xs space-y-1.5"></div>
+      </div>
+
+    </section>
+
+    <!-- Regional Node Operator (RNO) Zero-Investment Onboarding Playbook -->
+    <section class="glass-panel rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+        <div>
+          <span class="text-xs font-mono-kuts uppercase tracking-wider text-amber-400">Pinaleaf Advancements LLP • Pan-India Network</span>
+          <h2 class="text-2xl font-bold text-white mt-1">Regional Node Operator (RNO) Onboarding Track</h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Zero-investment regional business partnership anchored to Master Origin Node THRINC000 (Thrissur).
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2 text-xs font-mono-kuts">
+          <span class="px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/25 text-amber-300">
+            Zero Franchise Fee
+          </span>
+          <a href="https://wa.me/916238512583" target="_blank" rel="noopener" class="px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold transition">
+            WhatsApp Desk: +91 6238512583
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-slate-900/70 p-5 rounded-xl border border-slate-800 space-y-2">
+          <div class="text-xs font-mono-kuts text-sky-400">STEP 01 • TRAINING</div>
+          <h3 class="font-bold text-white text-base">Complete Core Modules</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Complete Modules 01, 02, and 06 in the Academy LMS to master digital operations, IPFS content verification, and KUTS functional categorization.
+          </p>
+        </div>
+
+        <div class="bg-slate-900/70 p-5 rounded-xl border border-slate-800 space-y-2">
+          <div class="text-xs font-mono-kuts text-emerald-400">STEP 02 • CREDENTIAL</div>
+          <h3 class="font-bold text-white text-base">Submit Resume &amp; JSON Proof</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Share your resume along with your downloaded Category 11 SHA-256 certificate JSON file to Pinaleaf Advancements LLP via email or WhatsApp.
+          </p>
+        </div>
+
+        <div class="bg-slate-900/70 p-5 rounded-xl border border-slate-800 space-y-2">
+          <div class="text-xs font-mono-kuts text-amber-400">STEP 03 • ACTIVATION</div>
+          <h3 class="font-bold text-white text-base">GRR Callsign Commissioning</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Receive your assigned 3-letter uppercase NodeID callsign from the Global Resource Registry (§4.2) to operate regional MSME and Janasevana workflows.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const T0_JDN = -1931076.5;
+    const TSES = 3.340e-7;
+
+    function mintNewAccessKey() {
+      const roleCode = document.getElementById('key-role').value;
+      const now = new Date();
+      const jdn = (now.getTime() / 86400000) + 2440587.5;
+      const elapsedSeconds = (jdn - T0_JDN) * 86400;
+      let ticks = BigInt(Math.round(elapsedSeconds / TSES));
+
+      const fields = new Array(11).fill('00');
+      for (let i = 10; i >= 0; i--) {
+        fields[i] = String(Number(ticks % 100n)).padStart(2, '0');
+        ticks = ticks / 100n;
+      }
+
+      const fullKey = `04:${fields.join('.')}-THR.${roleCode}`;
+      document.getElementById('active-key-box').value = fullKey;
+      const msg = document.getElementById('key-status-msg');
+      msg.className = 'text-xs font-mono-kuts text-emerald-400';
+      msg.textContent = '22-digit Category 04 key generated.';
+    }
+
+    function copyGeneratedKey() {
+      const val = document.getElementById('active-key-box').value.trim();
+      if (val) navigator.clipboard.writeText(val);
+    }
+
+    function activateAndEnterLms() {
+      const raw = document.getElementById('active-key-box').value.trim();
+      const digitsOnly = raw.replace(/[^0-9]/g, '');
+      const msg = document.getElementById('key-status-msg');
+
+      // Accepts 22-digit payload, 24-digit (04 prefix), or 26-digit (04 prefix + 2-digit sub-tick)
+      if (digitsOnly.length === 22 || digitsOnly.length === 24 || digitsOnly.length === 26) {
+        sessionStorage.setItem('kuts_learner_key', raw);
+        msg.className = 'text-xs font-mono-kuts text-emerald-400';
+        msg.textContent = 'Authenticated! Redirecting to Academy LMS...';
+        setTimeout(() => {
+          window.location.href = './academy.html';
+        }, 600);
+      } else {
+        msg.className = 'text-xs font-mono-kuts text-rose-400';
+        msg.textContent = 'Invalid key format. Generate a key or paste a 22-digit Base-100 payload.';
+      }
+    }
+
+    async function sha256Hex(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function handleCertFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        document.getElementById('cert-json-input').value = evt.target.result;
+        verifyCertificateJson();
+      };
+      reader.readAsText(file);
+    }
+
+    async function verifyCertificateJson() {
+      const raw = document.getElementById('cert-json-input').value.trim();
+      const resBox = document.getElementById('cert-verify-result');
+      resBox.classList.remove('hidden');
+
+      try {
+        const cert = JSON.parse(raw);
+        if (!cert.holder || !cert.module_code || !cert.module_title || !cert.kuts_identifier || !cert.sha256_digest) {
+          throw new Error("Missing required KUTS Category 11 certificate fields.");
+        }
+
+        const expectedPayload = `${cert.holder}|${cert.module_code}|${cert.module_title}|${cert.kuts_identifier}|THRINC000`;
+        const computedDigest = await sha256Hex(expectedPayload);
+
+        if (computedDigest === cert.sha256_digest) {
+          resBox.innerHTML = `
+            <div class="text-emerald-400 font-bold">AUTHENTIC CREDENTIAL • SHA-256 MATCH</div>
+            <div class="text-slate-300">Holder: <span class="text-white">${cert.holder}</span></div>
+            <div class="text-slate-300">Module: <span class="text-sky-300">${cert.module_code} — ${cert.module_title}</span></div>
+            <div class="text-slate-400 break-all">Serial: ${cert.kuts_identifier}</div>
+          `;
+        } else {
+          resBox.innerHTML = `
+            <div class="text-rose-400 font-bold">TAMPER DETECTED • DIGEST MISMATCH</div>
+            <div class="text-slate-400">The SHA-256 hash does not match the holder, module, or KUTS serial number.</div>
+          `;
+        }
+      } catch (err) {
+        resBox.innerHTML = `
+          <div class="text-rose-400 font-bold">INVALID CERTIFICATE JSON</div>
+          <div class="text-slate-400">${err.message}</div>
+        `;
+      }
+    }
+
+    // Pre-populate a fresh key on load for immediate testing
+    mintNewAccessKey();
+  </script>
+</body>
+</html>

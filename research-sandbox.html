@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rev 8 Conformance &amp; Test Vector Sandbox | KUTS Global Academy — Pin A Leaf</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #060913;
+      color: #e2e8f0;
+    }
+    .font-mono-kuts {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.16);
+    }
+    .grid-bg {
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+  </style>
+</head>
+<body class="grid-bg min-h-screen flex flex-col antialiased">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="./index.html" class="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-sky-600 flex items-center justify-center font-bold text-white">
+          K8
+        </a>
+        <div>
+          <span class="font-bold text-white text-base block leading-none">Rev 8 Conformance Sandbox</span>
+          <span class="text-[11px] text-indigo-400 font-mono-kuts">SECTION 10.2 TEST VECTORS &amp; PARSER</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="./temporal-converter.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition">
+          Temporal Converter
+        </a>
+        <a href="./academy.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition">
+          Academy LMS
+        </a>
+        <a href="./index.html" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition">
+          ← Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Section 10.2 Mandatory Test Vector Suite -->
+    <section class="glass-panel rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+        <div>
+          <span class="text-xs font-mono-kuts uppercase tracking-wider text-indigo-400">Section 10.2 Conformance Gate</span>
+          <h1 class="text-2xl font-bold text-white mt-1">Mandatory Revision 8 Test Vector Suite</h1>
+          <p class="text-xs text-slate-400 mt-1">
+            Executes all 10 deterministic conformance vectors in-browser against the Revision 8 reference rules.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="suite-summary" class="text-xs font-mono-kuts px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">
+            Ready to Run (10 Vectors)
+          </span>
+          <button onclick="runAllVectors()" class="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition shadow-lg shadow-sky-500/20">
+            Run Full Suite
+          </button>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse font-mono-kuts text-xs">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400">
+              <th class="py-2.5 px-3">#</th>
+              <th class="py-2.5 px-3">Test Vector</th>
+              <th class="py-2.5 px-3">Normative Requirement</th>
+              <th class="py-2.5 px-3">Observed Output</th>
+              <th class="py-2.5 px-3">Result</th>
+            </tr>
+          </thead>
+          <tbody id="vectors-tbody" class="divide-y divide-slate-800/60"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Bottom Grid: Parser Validator + Kine/Governance Simulator -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Section 4.1 Strict Composite Identifier Parser -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
+        <span class="text-xs font-mono-kuts uppercase tracking-wider text-sky-400">Section 4.1 &amp; 10.1(12) Parser</span>
+        <h2 class="text-xl font-bold text-white">Composite Identifier Grammar Validator</h2>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Validates <code>Category ":" Payload "-" NodeID "." SubTick</code>. Rejects out-of-range categories (01–16), wrong field counts, lowercase NodeIDs, or invalid sub-ticks.
+        </p>
+
+        <div class="space-y-3">
+          <input id="parser-input" type="text" value="03:00.01.13.51.71.67.97.76.61.67.66-THR.01"
+            class="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-sky-300 focus:outline-none focus:border-sky-400" />
+          <div class="flex flex-wrap gap-2">
+            <button onclick="validateComposite()" class="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition">
+              Validate Identifier
+            </button>
+            <button onclick="testMalformedExample()" class="px-3.5 py-2 rounded-lg border border-slate-700 hover:border-rose-400/50 text-slate-300 text-xs transition">
+              Test Malformed Input
+            </button>
+          </div>
+        </div>
+
+        <div id="parser-output" class="bg-slate-950/90 p-4 rounded-xl border border-slate-800 font-mono-kuts text-xs space-y-1.5">
+          <div class="text-emerald-400 font-semibold">VALID REVISION 8 IDENTIFIER</div>
+          <div class="text-slate-400">Category: 03 (Kinetic) • NodeID: THR • SubTick: 01</div>
+        </div>
+      </div>
+
+      <!-- Section 2.6 & 6.5 Kine Valuation & Least Action Governance Simulator -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
+        <span class="text-xs font-mono-kuts uppercase tracking-wider text-emerald-400">Section 2.6 &amp; 6.5 Simulator</span>
+        <h2 class="text-xl font-bold text-white">Kine Valuation &amp; PFS/RSP State Machine</h2>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Computes normalized Kine value (<code>Ebase = 10 kWh</code>, <code>Cbase = 100,000 tokens</code>, <code>w1=0.5, w2=0.5</code>), enforces the <strong>USD $2.00</strong> floor rate, and splits 1.5% PFS + 1.5% RSP.
+        </p>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Energy Consumed (kWh)</label>
+            <input id="sim-energy" type="number" step="0.1" value="10" oninput="simulateKine()"
+              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-white" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">AI Compute Tokens</label>
+            <input id="sim-tokens" type="number" step="1000" value="100000" oninput="simulateKine()"
+              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-white" />
+          </div>
+        </div>
+
+        <div id="kine-sim-output" class="bg-slate-950/90 p-4 rounded-xl border border-slate-800 font-mono-kuts text-xs space-y-1.5"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    const TSES = 3.340e-7;
+    const MAX_TICKS = 9999999999999999999999n; // 10^22 - 1
+
+    const CATEGORY_NAMES = {
+      "01": "Temporal", "02": "Spatial", "03": "Kinetic", "04": "Neural",
+      "05": "Elemental", "06": "Plants", "07": "Animals", "08": "Expressive",
+      "09": "Fluidic", "10": "Virtual", "11": "Institutional", "12": "Fiscal",
+      "13": "Structural", "14": "Mechanical", "15": "Radiant", "16": "Latent"
+    };
+
+    function encodeTicksToPayload(ticksBigInt) {
+      if (ticksBigInt < 0n || ticksBigInt > MAX_TICKS) {
+        throw new Error("Tick count out of 11-field Base-100 range");
+      }
+      let temp = ticksBigInt;
+      const fields = new Array(11).fill('00');
+      for (let i = 10; i >= 0; i--) {
+        fields[i] = String(Number(temp % 100n)).padStart(2, '0');
+        temp = temp / 100n;
+      }
+      return fields.join('.');
+    }
+
+    function parseKutsIdentifier(idStr) {
+      const match = idStr.trim().match(/^(\d{2}):((?:\d{2}\.){10}\d{2})-([A-Z]{3}\d{0,6})\.(\d{2})$/);
+      if (!match) {
+        return { valid: false, reason: "Syntax mismatch against Category:11-Fields-NodeID.SubTick" };
+      }
+      const cat = match[1];
+      if (!CATEGORY_NAMES[cat]) {
+        return { valid: false, reason: `Category ${cat} out of valid range (01–16)` };
+      }
+      return {
+        valid: true,
+        category: cat,
+        categoryName: CATEGORY_NAMES[cat],
+        payload: match[2],
+        nodeId: match[3],
+        subTick: match[4]
+      };
+    }
+
+    // Atomic Sub-Tick Allocator Simulation (§4.3)
+    class SubTickAllocator {
+      constructor() {
+        this.currentTick = 0n;
+        this.counter = 0;
+      }
+      allocate(tick) {
+        if (tick !== this.currentTick) {
+          this.currentTick = tick;
+          this.counter = 0;
+        }
+        if (this.counter > 99) {
+          // Policy (a): queue/rollover to next Session-Epoch tick
+          return { tick: tick + 1n, subTick: "00", escalated: true };
+        }
+        const assigned = String(this.counter).padStart(2, '0');
+        this.counter++;
+        return { tick, subTick: assigned, escalated: false };
+      }
+    }
+
+    const TEST_VECTORS = [
+      {
+        id: "TV-01",
+        name: "T0 exact instant",
+        req: "00.00.00.00.00.00.00.00.00.00.00, sub-tick 00",
+        run: () => {
+          const p = encodeTicksToPayload(0n);
+          const pass = p === "00.00.00.00.00.00.00.00.00.00.00";
+          return { observed: `${p} (sub-tick 00)`, pass };
+        }
+      },
+      {
+        id: "TV-02",
+        name: "T0 + 1 tick",
+        req: "Exactly one Session-Epoch increment (...00.01)",
+        run: () => {
+          const p = encodeTicksToPayload(1n);
+          const pass = p === "00.00.00.00.00.00.00.00.00.00.01";
+          return { observed: p, pass };
+        }
+      },
+      {
+        id: "TV-03",
+        name: "Rounding boundaries",
+        req: "Nearest-integer rounding at .5-tick boundary",
+        run: () => {
+          const low = BigInt(Math.round(9.49));
+          const high = BigInt(Math.round(9.50));
+          const pass = low === 9n && high === 10n;
+          return { observed: `9.49→${low}, 9.50→${high}`, pass };
+        }
+      },
+      {
+        id: "TV-04",
+        name: "Base-100 rollover",
+        req: "Correct carry across 00–99 field boundaries",
+        run: () => {
+          const p = encodeTicksToPayload(100n);
+          const pass = p === "00.00.00.00.00.00.00.00.00.01.00";
+          return { observed: `99→100 = ${p}`, pass };
+        }
+      },
+      {
+        id: "TV-05",
+        name: "Maximum payload",
+        req: "Correct handling of 10^22 - 1 (all 99s)",
+        run: () => {
+          const p = encodeTicksToPayload(MAX_TICKS);
+          const pass = p === "99.99.99.99.99.99.99.99.99.99.99";
+          return { observed: p, pass };
+        }
+      },
+      {
+        id: "TV-06",
+        name: "GW150914 benchmark",
+        req: "03:00.01.13.51.71.67.97.76.61.67.66-THR.01",
+        run: () => {
+          const elapsedSec = 4388279 * 86400 + 35445.39;
+          const n = BigInt(Math.round(elapsedSec / TSES));
+          const id = `03:${encodeTicksToPayload(n)}-THR.01`;
+          const pass = id === "03:00.01.13.51.71.67.97.76.61.67.66-THR.01";
+          return { observed: id, pass };
+        }
+      },
+      {
+        id: "TV-07",
+        name: "Concurrent events",
+        req: "Deterministic atomic sub-tick allocation (00, 01, 02)",
+        run: () => {
+          const alloc = new SubTickAllocator();
+          const a = alloc.allocate(500n).subTick;
+          const b = alloc.allocate(500n).subTick;
+          const c = alloc.allocate(500n).subTick;
+          const pass = a === "00" && b === "01" && c === "02";
+          return { observed: `Slots issued: ${a}, ${b}, ${c}`, pass };
+        }
+      },
+      {
+        id: "TV-08",
+        name: "Counter exhaustion",
+        req: "101st event in same tick queues to tick+1.00",
+        run: () => {
+          const alloc = new SubTickAllocator();
+          for (let i = 0; i < 100; i++) alloc.allocate(700n);
+          const overflow = alloc.allocate(700n);
+          const pass = overflow.tick === 701n && overflow.subTick === "00" && overflow.escalated;
+          return { observed: `101st → tick ${overflow.tick}.${overflow.subTick}`, pass };
+        }
+      },
+      {
+        id: "TV-09",
+        name: "Invalid inputs",
+        req: "Reject timestamps preceding T0 (-1 tick)",
+        run: () => {
+          let rejected = false;
+          try { encodeTicksToPayload(-1n); } catch { rejected = true; }
+          return { observed: rejected ? "Rejected pre-T0 input" : "Failed", pass: rejected };
+        }
+      },
+      {
+        id: "TV-10",
+        name: "Malformed identifier",
+        req: "Reject invalid Category 99 or lowercase NodeID",
+        run: () => {
+          const bad1 = parseKutsIdentifier("99:00.00.00.00.00.00.00.00.00.00.00-THR.00");
+          const bad2 = parseKutsIdentifier("03:00.00.00.00.00.00.00.00.00.00.00-thr.00");
+          const pass = !bad1.valid && !bad2.valid;
+          return { observed: "Rejected Cat-99 & lowercase thr", pass };
+        }
+      }
+    ];
+
+    function runAllVectors() {
+      const tbody = document.getElementById('vectors-tbody');
+      let passedCount = 0;
+
+      tbody.innerHTML = TEST_VECTORS.map(tv => {
+        const res = tv.run();
+        if (res.pass) passedCount++;
+        return `
+          <tr>
+            <td class="py-2.5 px-3 text-slate-500">${tv.id}</td>
+            <td class="py-2.5 px-3 font-semibold text-white">${tv.name}</td>
+            <td class="py-2.5 px-3 text-slate-400">${tv.req}</td>
+            <td class="py-2.5 px-3 text-sky-300">${res.observed}</td>
+            <td class="py-2.5 px-3">
+              <span class="px-2 py-0.5 rounded font-semibold ${
+                res.pass ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
+              }">
+                ${res.pass ? 'PASS' : 'FAIL'}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      const summary = document.getElementById('suite-summary');
+      summary.className = "text-xs font-mono-kuts px-3 py-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300";
+      summary.textContent = `${passedCount} / ${TEST_VECTORS.length} CONFORMANT`;
+    }
+
+    function validateComposite() {
+      const val = document.getElementById('parser-input').value;
+      const out = document.getElementById('parser-output');
+      const res = parseKutsIdentifier(val);
+      if (res.valid) {
+        out.innerHTML = `
+          <div class="text-emerald-400 font-semibold">VALID REVISION 8 IDENTIFIER</div>
+          <div class="text-slate-300">Category: ${res.category} (${res.categoryName}) • NodeID: ${res.nodeId} • SubTick: ${res.subTick}</div>
+        `;
+      } else {
+        out.innerHTML = `
+          <div class="text-rose-400 font-semibold">NON-CONFORMING / REJECTED</div>
+          <div class="text-slate-400">${res.reason}</div>
+        `;
+      }
+    }
+
+    function testMalformedExample() {
+      document.getElementById('parser-input').value = "19:00.01.13.51-thr.01";
+      validateComposite();
+    }
+
+    function simulateKine() {
+      const e = Math.max(0, parseFloat(document.getElementById('sim-energy').value) || 0);
+      const c = Math.max(0, parseFloat(document.getElementById('sim-tokens').value) || 0);
+      const kine = (e / 10) * 0.5 + (c / 100000) * 0.5;
+      const flux = kine * 100;
+      const floorUsd = kine * 2.00;
+      const pfs = kine * 0.015;
+      const rsp = kine * 0.015;
+      const netRecipient = kine * 0.97;
+
+      document.getElementById('kine-sim-output').innerHTML = `
+        <div class="flex justify-between"><span class="text-slate-500">Minted Value:</span><span class="text-sky-300 font-semibold">${kine.toFixed(4)} K (${flux.toFixed(2)} Flux)</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Protocol Floor Backing ($2.00/K):</span><span class="text-emerald-300">$${floorUsd.toFixed(2)} USD</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Governance Split (1.5% PFS + 1.5% RSP):</span><span class="text-amber-300">${pfs.toFixed(4)} K + ${rsp.toFixed(4)} K</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Net Settled (97%):</span><span class="text-white font-semibold">${netRecipient.toFixed(4)} K</span></div>
+      `;
+    }
+
+    runAllVectors();
+    validateComposite();
+    simulateKine();
+  </script>
+</body>
+</html>

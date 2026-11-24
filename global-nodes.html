@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anchor Node Registry &amp; Topology | KUTS Global Academy — Pin A Leaf</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #060913;
+      color: #e2e8f0;
+    }
+    .font-mono-kuts {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.16);
+    }
+    .grid-bg {
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+  </style>
+</head>
+<body class="grid-bg min-h-screen flex flex-col antialiased">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="./index.html" class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-sky-600 flex items-center justify-center font-bold text-white">
+          K8
+        </a>
+        <div>
+          <span class="font-bold text-white text-base block leading-none">Anchor Node Registry</span>
+          <span class="text-[11px] text-emerald-400 font-mono-kuts">SECTION 3.3, 4.2 &amp; 7.1 TOPOLOGY</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="./research-sandbox.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition">
+          Test Sandbox
+        </a>
+        <a href="./academy.html" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 hover:border-sky-400 text-slate-300 hover:text-white transition">
+          Academy LMS
+        </a>
+        <a href="./index.html" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition">
+          ← Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Conformance Banner -->
+    <div class="bg-emerald-950/30 border border-emerald-500/30 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="space-y-1">
+        <div class="text-xs font-mono-kuts uppercase tracking-wider text-emerald-400">Section 10.1(7) Conformance Notice</div>
+        <p class="text-xs sm:text-sm text-slate-300">
+          Deployed physical infrastructure (<strong>THRINC000</strong>) is strictly separated from planned Target Topology tiers. Unconstructed virtual grid tiers are explicitly labeled as design targets.
+        </p>
+      </div>
+      <span class="px-3 py-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-mono-kuts text-xs shrink-0">
+        1 ACTIVE ROOT NODE
+      </span>
+    </div>
+
+    <!-- Active Infrastructure vs Target Topology -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Currently Deployed Infrastructure (Active) -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 border-emerald-500/35 space-y-5">
+        <div class="flex items-center justify-between">
+          <span class="inline-flex items-center gap-2 text-xs font-mono-kuts text-emerald-400 uppercase">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Deployed Infrastructure (Active)
+          </span>
+          <span class="text-xs font-mono-kuts px-2.5 py-0.5 rounded bg-slate-900 text-sky-300 border border-slate-700">
+            Callsign: THR
+          </span>
+        </div>
+
+        <h1 class="text-2xl font-bold text-white">Master Origin Node: THRINC000</h1>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Sole operational root for KUTS synchronization, the Genesis Loop, and the Global Resource Registry (GRR) bidirectional callsign table (§3.3 &amp; §4.2).
+        </p>
+
+        <div class="bg-slate-950/90 rounded-xl p-4 border border-slate-800 font-mono-kuts text-xs space-y-2.5">
+          <div class="flex justify-between gap-2">
+            <span class="text-slate-500">Full Registry ID:</span>
+            <span class="text-white font-semibold">THRINC000 (Class INC • Seq 000)</span>
+          </div>
+          <div class="flex justify-between gap-2">
+            <span class="text-slate-500">Composite Callsign:</span>
+            <span class="text-sky-400 font-semibold">THR (Fixed 3-Letter Width)</span>
+          </div>
+          <div class="flex justify-between gap-2">
+            <span class="text-slate-500">Primary Coordinates:</span>
+            <span class="text-slate-200">10.5249° N, 76.2144° E</span>
+          </div>
+          <div class="flex justify-between gap-2">
+            <span class="text-slate-500">Adjusted Record:</span>
+            <span class="text-emerald-300">10.493210° N, 76.213464° E</span>
+          </div>
+          <div class="flex justify-between gap-2">
+            <span class="text-slate-500">Physical Location:</span>
+            <span class="text-slate-200">Kanimangalam, Thrissur, Kerala, IN</span>
+          </div>
+          <div class="flex justify-between gap-2">
+            <span class="text-slate-500">Max Event Ceiling:</span>
+            <span class="text-indigo-300">~2.99 × 10⁸ events/sec (00–99 sub-ticks)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Target Topology (Planned / Virtual Grid) -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono-kuts text-amber-400 uppercase">Target Topology (Planned / Virtual Grid)</span>
+          <span class="text-xs font-mono-kuts px-2.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/25">
+            DESIGN TARGETS
+          </span>
+        </div>
+
+        <h2 class="text-2xl font-bold text-white">4-Tier Hierarchical Synchronization Grid</h2>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Architectural scaling roadmap defined in Section 3.3. Each tier requires hardware clock characterization and light-travel-time calibration (§7.1) prior to activation.
+        </p>
+
+        <div class="space-y-3 font-mono-kuts text-xs">
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-sky-300 font-semibold">Level 1: 34 Global Anchor Nodes (GANs)</div>
+              <div class="text-slate-400 text-[11px]">Standby reference origins &amp; continental timing relays</div>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-amber-300">PLANNED</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-sky-300 font-semibold">Level 2: 144 Primary Production Nodes (PPNs)</div>
+              <div class="text-slate-400 text-[11px]">Regional industrial &amp; RNO aggregation hubs</div>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-amber-300">PLANNED</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-sky-300 font-semibold">Level 3: 1,728 Secondary Capillary Nodes</div>
+              <div class="text-slate-400 text-[11px]">12 capillary nodes per Primary Production Node</div>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-amber-300">PLANNED</span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-sky-300 font-semibold">Level 4: Terminal Interfaces</div>
+              <div class="text-slate-400 text-[11px]">IPv4/IPv6 Destination Nodes &amp; E.164 Mobile User Points</div>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-amber-300">PLANNED</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Grid: NodeID Lifecycle Validator + Light-Travel Propagation Delay Calculator -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Section 4.2 NodeID & Callsign Validator -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
+        <span class="text-xs font-mono-kuts uppercase tracking-wider text-sky-400">Section 4.2 GRR Spec</span>
+        <h2 class="text-xl font-bold text-white">NodeID &amp; Callsign Format Checker</h2>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Validates 3-letter uppercase alphabetic callsigns (<code>A–Z</code>) and extended registry IDs (up to 6 numeric digits). Lifecycle states: <em>Reserved → Activated → Suspended → Retired</em>.
+        </p>
+
+        <div class="flex gap-2">
+          <input id="nodeid-input" type="text" value="THRINC000" maxlength="9"
+            class="flex-grow px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-sky-300 focus:outline-none focus:border-sky-400" />
+          <button onclick="checkNodeId()" class="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition">
+            Verify NodeID
+          </button>
+        </div>
+
+        <div id="nodeid-output" class="bg-slate-950/90 p-4 rounded-xl border border-slate-800 font-mono-kuts text-xs space-y-1"></div>
+      </div>
+
+      <!-- Section 7.1 Light-Travel Propagation Delay Calculator -->
+      <div class="lg:col-span-6 glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
+        <span class="text-xs font-mono-kuts uppercase tracking-wider text-indigo-400">Section 7.1 Synchronization</span>
+        <h2 class="text-xl font-bold text-white">Light-Travel Propagation Offset from THRINC000</h2>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Calculates great-circle surface distance and vacuum light-travel time (<code>c = 299,792,458 m/s</code>) relative to Master Origin Node <strong>THRINC000</strong> (<code>10.493210° N, 76.213464° E</code>).
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Preset Hub</label>
+            <select id="hub-preset" onchange="applyHubPreset()" class="w-full px-2.5 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-slate-200">
+              <option value="28.6139,77.2090">New Delhi, IN</option>
+              <option value="19.0760,72.8777">Mumbai, IN</option>
+              <option value="12.9716,77.5946">Bengaluru, IN</option>
+              <option value="51.5074,-0.1278">London, UK</option>
+              <option value="35.6762,139.6503">Tokyo, JP</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Latitude (°)</label>
+            <input id="target-lat" type="number" step="0.0001" value="28.6139" oninput="calcPropagation()"
+              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-white" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Longitude (°)</label>
+            <input id="target-lon" type="number" step="0.0001" value="77.2090" oninput="calcPropagation()"
+              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono-kuts text-white" />
+          </div>
+        </div>
+
+        <div id="prop-output" class="bg-slate-950/90 p-4 rounded-xl border border-slate-800 font-mono-kuts text-xs space-y-1.5"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    const THR_LAT = 10.493210;
+    const THR_LON = 76.213464;
+    const C_LIGHT = 299792458; // m/s
+    const TSES = 3.340e-7;     // s
+
+    function checkNodeId() {
+      const raw = document.getElementById('nodeid-input').value.trim();
+      const out = document.getElementById('nodeid-output');
+      const match = raw.match(/^([A-Z]{3})([0-9]{0,6})$/);
+
+      if (!match) {
+        out.innerHTML = `
+          <div class="text-rose-400 font-semibold">INVALID NODEID FORMAT</div>
+          <div class="text-slate-400">Must be 3 uppercase ASCII letters (A–Z) followed by 0–6 digits.</div>
+        `;
+        return;
+      }
+
+      const callsign = match[1];
+      const suffix = match[2];
+      const isRoot = (raw === "THRINC000" || raw === "THR");
+
+      out.innerHTML = `
+        <div class="text-emerald-400 font-semibold">CONFORMANT NODEID (${suffix ? 'Full GRR Registry ID' : 'Compact Composite Callsign'})</div>
+        <div class="text-slate-300">3-Letter Callsign: <span class="text-sky-400">${callsign}</span> • Numeric Suffix: <span class="text-white">${suffix || 'None'}</span></div>
+        <div class="text-slate-400">Registry Status: ${isRoot ? 'ACTIVATED — Master Origin Root (Thrissur)' : 'UNASSIGNED — Requires GRR Commissioning (§4.2)'}</div>
+      `;
+    }
+
+    function applyHubPreset() {
+      const [lat, lon] = document.getElementById('hub-preset').value.split(',');
+      document.getElementById('target-lat').value = lat;
+      document.getElementById('target-lon').value = lon;
+      calcPropagation();
+    }
+
+    function calcPropagation() {
+      const lat2 = parseFloat(document.getElementById('target-lat').value) || 0;
+      const lon2 = parseFloat(document.getElementById('target-lon').value) || 0;
+
+      // Haversine great-circle distance (meters)
+      const R = 6371000;
+      const toRad = deg => deg * Math.PI / 180;
+      const dLat = toRad(lat2 - THR_LAT);
+      const dLon = toRad(lon2 - THR_LON);
+      const a = Math.sin(dLat / 2) ** 2 +
+                Math.cos(toRad(THR_LAT)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+      const distanceMeters = 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+      const delaySec = distanceMeters / C_LIGHT;
+      const delayMs = delaySec * 1000;
+      const delayTicks = delaySec / TSES;
+
+      document.getElementById('prop-output').innerHTML = `
+        <div class="flex justify-between"><span class="text-slate-500">Great-Circle Distance:</span><span class="text-white font-semibold">${(distanceMeters / 1000).toFixed(2)} km</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Light-Travel Offset:</span><span class="text-sky-300 font-semibold">${delayMs.toFixed(4)} ms (${(delaySec * 1e6).toFixed(2)} µs)</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Session-Epoch Offset:</span><span class="text-emerald-300 font-semibold">${delayTicks.toFixed(2)} T38 ticks</span></div>
+      `;
+    }
+
+    checkNodeId();
+    calcPropagation();
+  </script>
+</body>
+</html>
