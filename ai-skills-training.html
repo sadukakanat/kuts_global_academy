@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global AI Skills Training | KUTS Global Academy — Pin A Leaf</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Arabic:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&family=Noto+Sans+Malayalam:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans Malayalam', 'Noto Sans Devanagari', 'Noto Sans Tamil', 'Noto Sans Telugu', 'Noto Sans Kannada', 'Noto Sans Bengali', 'Noto Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #060913;
+      color: #e2e8f0;
+    }
+    .font-mono-kuts {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.16);
+    }
+    .grid-bg {
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+  </style>
+</head>
+<body class="grid-bg min-h-screen flex flex-col antialiased">
+
+  <!-- Sticky Academy Header -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="./index.html" class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-sky-600 flex items-center justify-center font-bold text-white shadow-lg shadow-emerald-500/20 notranslate" translate="no">
+          K8
+        </a>
+        <div>
+          <span data-i18n="ai.header_title" class="font-bold text-white text-base block leading-none">Global AI Skills Training</span>
+          <span class="text-[11px] text-emerald-400 font-mono-kuts notranslate" translate="no">KUTS GLOBAL ACADEMY • CAT 04 / MODULE 04</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="./academy.html?mod=04" data-i18n="nav.module4_quiz" class="hidden sm:inline-flex text-xs px-3 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 font-medium transition">
+          Module 04 Quiz →
+        </a>
+        <a href="./index.html" data-i18n="nav.home" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition">
+          ← Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <!-- Hero & Global Cohort Onboarding -->
+    <section class="glass-panel rounded-2xl p-6 sm:p-10 border-emerald-500/25 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span data-i18n="ai.badge">FREE GLOBAL COHORT PROGRAM • PINALEAF ADVANCEMENTS LLP</span>
+        </span>
+        <span class="text-xs font-mono-kuts text-sky-400 notranslate" translate="no">
+          ANCHOR: THRINC000 • CAT 04 NEURAL
+        </span>
+      </div>
+
+      <div class="max-w-3xl space-y-4">
+        <h1 data-i18n="ai.hero_title" class="text-2xl sm:text-4xl font-bold text-white leading-snug">
+          Practical Artificial Intelligence (AI) Training for Everyone
+        </h1>
+        <p data-i18n="ai.hero_subtitle" class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          A zero-jargon, 4-stage mobile-first program helping everyday learners, professionals, and MSMEs apply AI in daily life and work—linked to KUTS Global Academy Module 04 certification.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 pt-2">
+        <a id="cohort-whatsapp-btn" href="https://chat.whatsapp.com/F0WuiwhaBjzK8KajqFGid9" target="_blank" rel="noopener"
+          class="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition shadow-lg shadow-emerald-500/25">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.074-2.121-.515-1.425-.59-2.344-2.029-2.415-2.123-.07-.094-.572-.76-.572-1.45 0-.69.362-1.03.49-1.169.13-.14.282-.175.376-.175.094 0 .188.001.27.006.086.005.201-.033.315.241.117.28.401.977.436 1.049.035.071.058.155.012.249-.047.094-.07.153-.14.234-.07.082-.147.183-.21.246-.07.07-.143.146-.062.285.082.139.364.601.782.973.539.479.993.628 1.134.698.14.07.223.058.305-.035.082-.093.35-.407.443-.547.094-.14.188-.117.316-.07.13.047.82.386.961.457.14.07.234.105.27.164.035.059.035.34-.109.745z"/>
+          </svg>
+          <span data-i18n="ai.cta_whatsapp">Join Global WhatsApp Cohort</span>
+        </a>
+
+        <a id="cohort-telegram-btn" href="https://t.me/pinaleaf_kuts" target="_blank" rel="noopener"
+          class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-sky-500/15 border border-sky-500/35 hover:bg-sky-500/25 text-sky-300 font-semibold text-sm transition">
+          <span data-i18n="ai.cta_telegram">Join Telegram Channel</span>
+        </a>
+
+        <a href="./academy.html?mod=04" data-i18n="ai.cta_quiz" class="px-5 py-3 rounded-xl border border-slate-700 hover:border-emerald-400 text-slate-200 font-semibold text-sm transition">
+          Take Module 04 Quiz (SHA-256 Certificate) →
+        </a>
+      </div>
+    </section>
+
+    <!-- 4-Stage Curriculum + Interactive Zero-DB Progress Tracker -->
+    <section class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono-kuts text-sky-400 uppercase tracking-wider notranslate" translate="no">4-STAGE PRACTICAL TRACK • ORDER 51 COHORT</span>
+          <h2 data-i18n="ai.stages_heading" class="text-2xl font-bold text-white mt-1">4-Stage Practical Curriculum &amp; Mini-Projects</h2>
+          <p data-i18n="ai.stages_subheading" class="text-xs sm:text-sm text-slate-400 mt-1">Check off each stage as you complete it (saved privately in your browser with zero database).</p>
+        </div>
+        <div id="ai-stage-progress" class="font-mono-kuts text-xs px-3.5 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 notranslate" translate="no">
+          0 / 4 Stages Completed
+        </div>
+      </div>
+
+      <div id="stages-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- Universal Prompt Formula Copy-Box (Bilingual / Localized Ready) -->
+    <section class="glass-panel rounded-2xl p-6 sm:p-8 border-sky-500/20 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <span class="text-xs font-mono-kuts text-sky-400 uppercase tracking-wider notranslate" translate="no">STAGE 01 HANDS-ON TOOLKIT</span>
+          <h2 class="text-lg font-bold text-white mt-0.5">Universal Role + Context + Task + Format Prompt Template</h2>
+        </div>
+        <button type="button" onclick="copyPromptTemplate()" id="copy-prompt-btn"
+          class="text-xs font-mono-kuts px-3.5 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold transition">
+          Copy Prompt Template
+        </button>
+      </div>
+
+      <div id="universal-prompt-box" class="bg-slate-950/90 border border-slate-800 rounded-xl p-4 text-xs sm:text-sm text-slate-200 leading-relaxed whitespace-pre-line"></div>
+    </section>
+
+    <!-- Weekly Schedule Breakdown -->
+    <section class="glass-panel rounded-2xl p-6 sm:p-8 space-y-6">
+      <div>
+        <span class="text-xs font-mono-kuts text-amber-400 uppercase tracking-wider notranslate" translate="no">WEEKLY LEARNING CADENCE</span>
+        <h2 data-i18n="ai.schedule.title" class="text-xl font-bold text-white mt-1">Weekly Cohort Learning Rhythm (39-Day Expanse-Epoch)</h2>
+        <p data-i18n="ai.schedule.subtitle" class="text-xs sm:text-sm text-slate-400 mt-1">Designed so busy learners can progress steadily in just 15 minutes a day:</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="bg-slate-900/80 rounded-xl p-5 border-t-4 border-sky-500 space-y-2">
+          <h3 data-i18n="ai.schedule.mon_title" class="text-lg font-bold text-white">Monday — Concept Brief</h3>
+          <p data-i18n="ai.schedule.mon_desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            A 2-minute audio note and visual infographic introducing the week's core skill.
+          </p>
+        </div>
+
+        <div class="bg-slate-900/80 rounded-xl p-5 border-t-4 border-emerald-500 space-y-2">
+          <h3 data-i18n="ai.schedule.wed_title" class="text-lg font-bold text-white">Wednesday — Hands-On Task</h3>
+          <p data-i18n="ai.schedule.wed_desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            A practical 10-minute exercise you can complete directly on your smartphone.
+          </p>
+        </div>
+
+        <div class="bg-slate-900/80 rounded-xl p-5 border-t-4 border-amber-500 space-y-2">
+          <h3 data-i18n="ai.schedule.fri_title" class="text-lg font-bold text-white">Friday — Live Q&amp;A &amp; Review</h3>
+          <p data-i18n="ai.schedule.fri_desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Open community review window to share mini-projects and resolve doubts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="glass-panel rounded-2xl p-8 text-center space-y-4 border-emerald-500/20">
+      <h2 data-i18n="ai.bottom.title" class="text-xl sm:text-2xl font-bold text-white">Start Learning Free Today!</h2>
+      <p data-i18n="ai.bottom.desc" class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+        Anyone with a smartphone can join. Complete all 4 stages and advance toward your KUTS Certified Practitioner Diploma.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 pt-2">
+        <a id="bottom-whatsapp-btn" href="https://chat.whatsapp.com/F0WuiwhaBjzK8KajqFGid9" target="_blank" rel="noopener"
+          class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition shadow-lg shadow-emerald-500/20">
+          <span data-i18n="ai.cta_whatsapp">Join Global WhatsApp Cohort</span>
+        </a>
+        <a href="./practitioner-cert.html" data-i18n="nav.diploma" class="px-5 py-3 rounded-xl border border-slate-700 hover:border-sky-400 text-slate-200 font-semibold text-sm transition">
+          Practitioner Diploma
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Universal Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/90 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div>
+        <strong class="text-slate-200">Pinaleaf Advancements LLP</strong> • KUTS Global Academy (<span class="font-mono-kuts text-sky-400 notranslate" translate="no">THRINC000</span>)
+      </div>
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="./index.html" data-i18n="nav.home" class="hover:text-white">Home</a>
+        <a href="./academy.html" data-i18n="nav.academy" class="hover:text-sky-400">Academy LMS</a>
+        <a href="./practitioner-cert.html" data-i18n="nav.diploma" class="hover:text-emerald-400">Practitioner Diploma</a>
+        <a href="./partner-ops.html" data-i18n="nav.partner_ops" class="hover:text-amber-400">Partner OPS</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./i18n-engine.js"></script>
+  <script>
+    const STAGE_KEYS = [
+      { id: "stage_01", prefix: "ai.stage1" },
+      { id: "stage_02", prefix: "ai.stage2" },
+      { id: "stage_03", prefix: "ai.stage3" },
+      { id: "stage_04", prefix: "ai.stage4" }
+    ];
+
+    const PROMPT_TEMPLATES = {
+      en: "Act as an experienced [ROLE: e.g., Small Business Advisor / Teacher].
+Context: I am running a [CONTEXT: e.g., local retail shop in Thrissur / student study group].
+Task: Create a [TASK: e.g., clear 3-day budget and customer outreach checklist].
+Format: Present the answer as a simple numbered table in plain, easy-to-read language.",
+      ml: "ഒരു പരിചയസമ്പന്നനായ [ROLE: ഉദാഹരണത്തിന്, ബിസിനസ്സ് ഉപദേഷ്ടാവ് / അധ്യാപകൻ] ആയി പ്രവർത്തിക്കുക.
+സാഹചര്യം (Context): ഞാൻ [CONTEXT: ഉദാഹരണത്തിന്, തൃശ്ശൂരിൽ ഒരു ചെറുകിട സ്ഥാപനം നടത്തുന്നു].
+ചെയ്യേണ്ട കാര്യം (Task): [TASK: 3 ദിവസത്തെ കൃത്യമായ ബഡ്ജറ്റ് പ്ലാനും ഉപഭോക്തൃ പട്ടികയും തയ്യാറാക്കുക].
+രൂപം (Format): സാധാരണക്കാർക്ക് എളുപ്പത്തിൽ മനസ്സിലാകുന്ന ലളിതമായ മലയാളത്തിൽ പട്ടികയായി നൽകുക."
+    };
+
+    function t(key) {
+      return window.KUTS_I18N ? window.KUTS_I18N.t(key) : key;
+    }
+
+    function getCompletedStages() {
+      try {
+        return JSON.parse(localStorage.getItem('kuts_ai_skills_stages') || '{}');
+      } catch {
+        return {};
+      }
+    }
+
+    function toggleStage(id) {
+      const state = getCompletedStages();
+      if (state[id]) {
+        delete state[id];
+      } else {
+        state[id] = new Date().toISOString();
+      }
+      localStorage.setItem('kuts_ai_skills_stages', JSON.stringify(state));
+      renderLocalizedDynamicContent();
+    }
+
+    function renderLocalizedDynamicContent() {
+      const state = getCompletedStages();
+      const doneCount = Object.keys(state).length;
+      document.getElementById('ai-stage-progress').textContent = `${doneCount} / 4 Stages Completed`;
+
+      const markDoneLabel = t('ai.mark_done');
+      const doneBadgeLabel = t('ai.done_badge');
+      const miniProjectLabel = t('ai.mini_project_label');
+
+      document.getElementById('stages-container').innerHTML = STAGE_KEYS.map(s => {
+        const isDone = Boolean(state[s.id]);
+        const p = s.prefix;
+        return `
+          <div class="glass-panel rounded-2xl p-6 border ${isDone ? 'border-emerald-500/40' : 'border-slate-800'} flex flex-col justify-between space-y-5">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-mono-kuts text-sky-400 notranslate" translate="no">${t(p + '.num')}</span>
+                <label class="inline-flex items-center gap-2 text-xs cursor-pointer select-none ${isDone ? 'text-emerald-300 font-semibold' : 'text-slate-400'}">
+                  <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleStage('${s.id}')" class="accent-emerald-400 w-4 h-4" />
+                  <span>${isDone ? doneBadgeLabel : markDoneLabel}</span>
+                </label>
+              </div>
+              <h3 class="text-xl font-bold text-white">${t(p + '.title')}</h3>
+              <p class="text-xs sm:text-sm text-slate-400 italic">${t(p + '.desc')}</p>
+              <ul class="space-y-2 text-xs sm:text-sm text-slate-300 pt-1">
+                <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">•</span><span>${t(p + '.p1')}</span></li>
+                <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">•</span><span>${t(p + '.p2')}</span></li>
+                <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">•</span><span>${t(p + '.p3')}</span></li>
+                <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">•</span><span>${t(p + '.p4')}</span></li>
+              </ul>
+            </div>
+            <div class="bg-slate-900/90 border-l-4 border-emerald-500 p-3.5 rounded-r-xl text-xs sm:text-sm text-slate-300">
+              <strong class="text-emerald-300 block mb-0.5">${miniProjectLabel}</strong>
+              ${t(p + '.project')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Sync localized cohort URLs & prompt template
+      const waUrl = t('ai.cohort.whatsapp_url');
+      const tgUrl = t('ai.cohort.telegram_url');
+      if (waUrl && waUrl.startsWith('http')) {
+        document.getElementById('cohort-whatsapp-btn').href = waUrl;
+        document.getElementById('bottom-whatsapp-btn').href = waUrl;
+      }
+      if (tgUrl && tgUrl.startsWith('http')) {
+        document.getElementById('cohort-telegram-btn').href = tgUrl;
+      }
+
+      const activeLang = localStorage.getItem('kuts_preferred_lang') || 'en';
+      document.getElementById('universal-prompt-box').textContent =
+        PROMPT_TEMPLATES[activeLang] || PROMPT_TEMPLATES.en;
+    }
+
+    function copyPromptTemplate() {
+      const text = document.getElementById('universal-prompt-box').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copy-prompt-btn');
+        btn.textContent = 'Copied ✓';
+        setTimeout(() => { btn.textContent = 'Copy Prompt Template'; }, 1800);
+      });
+    }
+
+    window.addEventListener('kuts:language-changed', renderLocalizedDynamicContent);
+    renderLocalizedDynamicContent();
+  </script>
+<script src="./i18n-engine.js"></script>
+</body>
+</html>
